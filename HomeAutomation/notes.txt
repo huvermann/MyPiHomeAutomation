@@ -1,0 +1,9 @@
+Flask installieren
+
+Falls Pip noch nicht installiert ist:
+
+>sudo apt-get install python-pip
+
+Flask über PIP installieren:
+
+>sudo pip install flask

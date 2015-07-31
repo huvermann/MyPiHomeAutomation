@@ -43,6 +43,7 @@
   <ItemGroup>
     <Content Include="HomeAutomation\templates\jsmobile.html" />
     <Content Include="HomeAutomation\templates\switches.html" />
+    <Content Include="notes.txt" />
     <Content Include="requirements.txt" />
     <Content Include="HomeAutomation\static\content\site.css" />
     <Content Include="HomeAutomation\static\scripts\_references.js" />
