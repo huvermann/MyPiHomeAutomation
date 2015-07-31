@@ -1,0 +1,61 @@
+﻿{% extends "jsmobile.html" %}
+
+{% block content %}
+<script>
+    $(document).ready(function () {
+
+        execJson();
+        console.log("ready() finished!");
+    });
+
+    function execJson() {
+        var jqxhr = $.getJSON("/gpio", function () {
+            console.log("success");
+        })
+            .done(function (data) {
+                console.log("second success");
+                console.log(data);
+                var gpio = data["gpio"];
+                createSwitches(gpio)
+            })
+            .fail(function () {
+                console.log("error");
+            })
+            .always(function () {
+                console.log("complete");
+            });
+    }
+
+    function changeSlider() {
+        console.log("Change Slider called");
+        var formData = $(document.switchform);
+        var data = JSON.stringify(formData.serializeArray());
+        // Formulardaten an server übertragen
+    }
+
+    function createSwitches(gpio) {
+        console.log("createSwitches");
+        var content = "";
+        for (var port in gpio) {
+            content += '<label for="' + gpio[port].name + '">GPIO ' + port + ':</label>';
+                content += '<select name="' + gpio[port].name + '" id="' + gpio[port].name + '" data-role="slider" onchange="changeSlider()">';
+                if (gpio[port].value == "on") {
+                    content += '<option value="off">Off</option>';
+                    content += '<option selected value="on">On</option>';
+                } else {
+                    content += '<option selected value="off">Off</option>';
+                    content += '<option value="on">On</option>';
+                }
+                content += '</select>';
+        }
+
+        $('#switchform').append(content);
+        $('select').slider();
+    }
+</script>
+<h2>{{ title }}.</h2>
+<h3>{{ message }}</h3>
+<form name="switchform" id="switchform"></form>
+
+
+{% endblock %}
