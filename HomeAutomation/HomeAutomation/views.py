@@ -3,8 +3,8 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, Response, jsonify
-from HomeAutomation import app
+from flask import render_template, Response, request, jsonify
+from HomeAutomation import app, provider
 
 @app.route('/')
 @app.route('/home')
@@ -25,5 +25,14 @@ def switches():
 @app.route('/gpio', methods=["GET", "POST"])
 def jsongpio():
     # GPIO-Manager einbauen!!
-    dat = [{"name":"gpio-0","value":"off"},{"name":"gpio-1","value":"off"},{"name":"gpio-2","value":"on"},{"name":"gpio-3","value":"off"},{"name":"gpio-4","value":"on"}]
-    return jsonify(gpio=dat)
+
+    #dat = [{"name":"gpio-0","value":"off"},{"name":"gpio-1","value":"off"},{"name":"gpio-2","value":"on"},{"name":"gpio-3","value":"off"},{"name":"gpio-4","value":"on"}]
+    #return jsonify(gpio=dat)
+    return jsonify(gpio=provider.gpioData())
+
+@app.route('/post_gpio', methods=["POST"])
+def post_gpio():
+    test = request
+    return jsonify(post_gpio=provider.gpioData())
+
+

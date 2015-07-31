@@ -28,6 +28,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HomeAutomation\IOProvider.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="HomeAutomation\__init__.py" />
     <Compile Include="HomeAutomation\views.py" />
@@ -41,6 +44,7 @@
     <Folder Include="HomeAutomation\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config.json" />
     <Content Include="HomeAutomation\templates\jsmobile.html" />
     <Content Include="HomeAutomation\templates\switches.html" />
     <Content Include="notes.txt" />

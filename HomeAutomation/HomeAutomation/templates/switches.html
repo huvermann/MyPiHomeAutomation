@@ -31,13 +31,23 @@
         var formData = $(document.switchform);
         var data = JSON.stringify(formData.serializeArray());
         // Formulardaten an server übertragen
+        var ajaxPost = $.post("/post_gpio", data)
+        .done(function () {
+            console.log("ChangeSlider done");
+        })
+        .fail(function () {
+            console.log("ChangeSlider error");
+        })
+        .always(function () {
+            console.log("Change slider finished!");
+        });
     }
 
     function createSwitches(gpio) {
         console.log("createSwitches");
         var content = "";
         for (var port in gpio) {
-            content += '<label for="' + gpio[port].name + '">GPIO ' + port + ':</label>';
+            content += '<label for="' + gpio[port].name + '">' + gpio[port].label + ':</label>';
                 content += '<select name="' + gpio[port].name + '" id="' + gpio[port].name + '" data-role="slider" onchange="changeSlider()">';
                 if (gpio[port].value == "on") {
                     content += '<option value="off">Off</option>';

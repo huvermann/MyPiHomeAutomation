@@ -1,0 +1,28 @@
+[
+  
+  {
+    "label": "Schalter1",
+    "name": "gpio-0",
+    "value": "on"
+  },
+  {
+    "label": "Schalter2",
+    "name": "gpio-1",
+    "value": "off"
+  },
+  {
+    "label":  "Schalter3",
+    "name": "gpio-2",
+    "value": "on"
+  },
+  {
+    "label":  "Schalter4",
+    "name": "gpio-3",
+    "value": "off"
+  },
+  {
+    "label": "Schalter5",
+    "name": "gpio-4",
+    "value": "on"
+  }
+]
