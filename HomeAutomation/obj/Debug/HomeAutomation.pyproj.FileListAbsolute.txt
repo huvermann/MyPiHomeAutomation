@@ -11,3 +11,16 @@ c:\users\heiko\documents\visual studio 2015\Projects\DynamicIoT\HomeAutomation\b
 c:\users\heiko\documents\visual studio 2015\Projects\DynamicIoT\HomeAutomation\bin\wfastcgi.py
 c:\users\heiko\documents\visual studio 2015\Projects\DynamicIoT\HomeAutomation\obj\Debug\web.config
 c:\users\heiko\documents\visual studio 2015\Projects\DynamicIoT\HomeAutomation\obj\Debug\web.debug.config
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\bin\Microsoft.PythonTools.WebRole.dll
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\attach_server.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\visualstudio_py_debugger.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\visualstudio_py_repl.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\visualstudio_py_util.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\__init__.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\__main__.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\bin\AzureSetup.cfg
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\bin\Microsoft.PythonTools.AzureSetup.exe
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\bin\Microsoft.PythonTools.AzureSetup.exe.config
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\bin\wfastcgi.py
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\web.config
+C:\Users\Heiko\Documents\GitHubVisualStudio\MyPiHomeAutomation\HomeAutomation\obj\Debug\web.debug.config
