@@ -31,6 +31,9 @@
     <Compile Include="HomeAutomation\IOProvider.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ledtest.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="HomeAutomation\__init__.py" />
     <Compile Include="HomeAutomation\views.py" />
