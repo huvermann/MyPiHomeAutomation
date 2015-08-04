@@ -7,3 +7,6 @@ Falls Pip noch nicht installiert ist:
 Flask über PIP installieren:
 
 >sudo pip install flask
+
+Websocket-Client installieren:
+>sudo pip install websocket-client

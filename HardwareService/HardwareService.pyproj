@@ -5,9 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f54e9433-d207-4b73-9f19-de6d093577f0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>HardwareService.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <StartupFile>MyWebsocketServer.py</StartupFile>
+    <SearchPath>SimpleWebSocketServer\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>HardwareService</Name>
@@ -23,6 +22,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="HardwareService.py" />
+    <Compile Include="MyWebsocketServer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SimpleWebSocketServer\SimpleExampleServer.py" />
+    <Compile Include="SimpleWebSocketServer\SimpleHTTPSServer.py" />
+    <Compile Include="SimpleWebSocketServer\SimpleWebSocketServer.py" />
+    <Compile Include="SimpleWebSocketServer\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SimpleWebSocketServer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SimpleWebSocketServer\websocket.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
