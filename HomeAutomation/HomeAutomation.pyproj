@@ -28,6 +28,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HomeAutomation\IOProvider.py">
       <SubType>Code</SubType>
     </Compile>
@@ -51,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.json" />
+    <Content Include="HomeAutomation\templates\debugger.html" />
     <Content Include="HomeAutomation\templates\jsmobile.html" />
+    <Content Include="HomeAutomation\templates\nomobile.html" />
     <Content Include="HomeAutomation\templates\switches.html" />
     <Content Include="notes.txt" />
     <Content Include="requirements.txt" />

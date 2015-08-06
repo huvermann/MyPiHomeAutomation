@@ -17,9 +17,11 @@ class MessageBroker(WebSocket):
 
         return super(MessageBroker, self).__init__(server, sock, address)
     def handleMessage(self):
-       for client in clients:
-          if client != self:
-             client.sendMessage(self.address[0] + ' - ' + self.data)
+       print "Handle Message: "
+       print self.data
+        #for client in clients:
+          #if client != self:
+             #client.sendMessage(self.address[0] + ' - ' + self.data)
        self.parseMessage(self.data)
 
     def handleConnected(self):
@@ -63,11 +65,14 @@ class MessageBroker(WebSocket):
         for client in clients:
             if client != self:
                 if client.hasSubscribed(message["messagetype"]):
-                    client.sendMessageObjectAsJson(message)
+                    #client.sendMessageObjectAsJson(message)
+                    client.sendMessage(self.data)
 
     def hasSubscribed(self, messagetype):
         # Implement check
-        return messagetype in self.subscriptions
+        hasJoker = "*" in self.subscriptions
+        result = (messagetype in self.subscriptions) | hasJoker
+        return result
 
     def subscribe(self, message):
         sub = message["data"]

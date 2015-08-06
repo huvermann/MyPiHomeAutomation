@@ -1,0 +1,138 @@
+﻿{% extends "nomobile.html" %}
+
+{% block content %}
+    <script>
+        var ws;
+        $(document).ready(function () {
+            doConnect();
+        });
+
+        function subscribeAllMessages() {
+            //var msg = {
+            //    "messagetype": "subscribe",
+            //    "data": "*"
+            //}
+            //var str = JSON.stringify(msg);
+            websocket.send(createWebSocketMessage("subscribe", "*"));
+        }
+
+        function createWebSocketMessage(messageType, data) {
+            var msg = {
+                "messagetype": messageType,
+                "data": data
+            }
+            return JSON.stringify(msg);
+        }
+
+        function doConnect() {
+            var addr = 'ws://' + location.hostname + ":8000/"
+            console.log("Socket Adresse: " + addr);
+            //websocket = new WebSocket("ws://localhost:8000/");
+            websocket = new WebSocket(addr);
+            websocket.onopen = function (evt) { onOpen(evt) };
+            websocket.onclose = function (evt) { onClose(evt) };
+            websocket.onmessage = function (evt) { onMessage(evt) };
+            websocket.onerror = function (evt) { onError(evt) };
+        }
+
+        function onOpen(evt) {
+            writeToScreen("connected\n");
+            document.myform.connectButton.disabled = true;
+            document.myform.disconnectButton.disabled = false;
+            subscribeAllMessages();
+        }
+
+        function writeToScreen(message) {
+            document.myform.outputtext.value += message
+            document.myform.outputtext.scrollTop = document.myform.outputtext.scrollHeight;
+            console.log("write to screen: " + message);
+
+        }
+
+        function onClose(evt) {
+            writeToScreen("disconnected\n");
+            document.myform.connectButton.disabled = false;
+            document.myform.disconnectButton.disabled = true;
+            //InitSocketReconnect()
+        }
+
+        function onMessage(evt) {
+            writeToScreen("response: " + evt.data + '\n');
+        }
+
+        function onError(evt) {
+            writeToScreen('error: ' + evt.data + '\n');
+
+            websocket.close();
+
+            document.myform.connectButton.disabled = false;
+            document.myform.disconnectButton.disabled = true;
+
+        }
+
+        function sendText() {
+            var messagetype = document.myform.messagetype.value;
+            var data = document.myform.inputtext.value;
+
+            msg = createWebSocketMessage(messagetype, data);
+            doSend(msg);
+        }
+
+        function doSend(message) {
+            writeToScreen("sent: " + message + '\n');
+            websocket.send(message);
+        }
+
+        function clearText() {
+            document.myform.outputtext.value = "";
+        }
+
+        function doDisconnect() {
+            websocket.close();
+        }
+
+        var intervalId;
+
+        function InitSocketReconnect() {
+            intervalId = setInterval(socketReconnect, 5000)
+            console.log("InitSocketReconnect...");
+        }
+
+        function socketReconnect() {
+            console.log("socketReconnect.");
+            if (ws != null && ws.readyState == WebSocket.OPEN) {
+                // Stop reconnect
+                console.log("stop socketReconnect.");
+                clearInterval(intervalId);
+            } else {
+                console.log("execute Reconnect");
+                if (ws.readyState != WebSocket.CONNECTING) {
+                    doConnect();
+                }
+                
+            }
+        }
+
+    </script>
+    <p>Message Debugger</p>
+
+<form name="myform">
+    <p>Output:</p>
+    <p>
+        <textarea name="outputtext" rows="20" cols="50"></textarea>
+    </p>
+    <p>Messagetype:
+        <textarea name="messagetype" cols="50"></textarea>
+    </p>
+    <p>Data:
+        <textarea name="inputtext" cols="50"></textarea>
+    </p>
+    <p>
+        <input type="button" name=sendButton value="Send" onClick="sendText();">
+        <input type="button" name=clearButton value="Clear" onClick="clearText();">
+        <input type="button" name=disconnectButton value="Disconnect" onClick="doDisconnect();">
+        <input type="button" name=connectButton value="Connect" onClick="doConnect();">
+    </p>
+
+</form>
+{% endblock %}

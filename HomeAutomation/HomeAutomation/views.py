@@ -11,7 +11,8 @@ from HomeAutomation import app, provider
 def home():
     """Renders the home page."""
     return render_template(
-        'switches.html',
+        #'switches.html',
+        'debugger.html',
         title='Home Page',
         year=datetime.now().year,
     )
@@ -34,5 +35,10 @@ def jsongpio():
 def post_gpio():
     test = request
     return jsonify(post_gpio=provider.gpioData())
+
+@app.route('/debug')
+def showDebug():
+    return render_template('debugger.html')
+
 
 

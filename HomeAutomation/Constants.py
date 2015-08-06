@@ -1,0 +1,2 @@
+# Constants
+WEBSOCKETPORT = "8000"

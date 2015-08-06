@@ -5,9 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>eb0f6567-b801-491d-afc9-ded0a7c3d040</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>HardwareServiceClient.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <StartupFile>RaspberryNode.py</StartupFile>
+    <SearchPath>..\HomeAutomation\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>HardwareServiceClient</Name>
@@ -22,7 +21,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\HomeAutomation\Constants.py">
+      <Link>Constants.py</Link>
+    </Compile>
+    <Compile Include="HardwareItemBase.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HardwareNodeBase.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HardwareServiceClient.py" />
+    <Compile Include="RaspberryIOPortItem.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RaspberryNode.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
