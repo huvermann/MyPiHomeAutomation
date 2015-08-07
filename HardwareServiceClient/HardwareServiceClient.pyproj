@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>eb0f6567-b801-491d-afc9-ded0a7c3d040</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>RaspberryNode.py</StartupFile>
+    <StartupFile>driveport.py</StartupFile>
     <SearchPath>..\HomeAutomation\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -23,6 +23,10 @@
   <ItemGroup>
     <Compile Include="..\HomeAutomation\Constants.py">
       <Link>Constants.py</Link>
+    </Compile>
+    <Compile Include="blink.py" />
+    <Compile Include="driveport.py">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="HardwareItemBase.py">
       <SubType>Code</SubType>
