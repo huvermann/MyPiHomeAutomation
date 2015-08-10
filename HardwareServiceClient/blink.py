@@ -1,5 +1,8 @@
-import time
+﻿import time
 import RPi.GPIO as GPIO
+import ptvsd
+ptvsd.enable_attach('iot')
+ptvsd.wait_for_attach()
 
 # RPi.GPIO Layout verwenden (wie Pin-Nummern)
 GPIO.setmode(GPIO.BOARD)
@@ -17,3 +20,4 @@ while 1:
   GPIO.output(16, GPIO.LOW)
   time.sleep(1)
   GPIO.output(16, GPIO.HIGH)
+  time.sleep(1)

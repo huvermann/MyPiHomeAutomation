@@ -6,11 +6,14 @@
     <ProjectGuid>eb0f6567-b801-491d-afc9-ded0a7c3d040</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>driveport.py</StartupFile>
-    <SearchPath>..\HomeAutomation\</SearchPath>
+    <SearchPath>..\HomeAutomation\;..\..\..\..\..\..\Python27\Lib\site-packages\ptvsd\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>HardwareServiceClient</Name>
     <RootNamespace>HardwareServiceClient</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>-p 23 -d out -v 1</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
