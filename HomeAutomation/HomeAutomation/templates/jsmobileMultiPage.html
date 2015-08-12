@@ -4,22 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - Uses JQueryMobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="/static/scripts/paging.js"></script>
 </head>
 
 <body>
-    <div data-role="page"> <div data-role="header">
-        <h1>Home Automation System</h1></div>
-    <div data-role="content"> 
-        {% block content %}{% endblock %}
-    </div> 
-    <div data-role="footer" data-position="fixed>
-        <h4>Footer Home Automation System</h4>
-    </div> 
-    </div>
-    {% block scripts %}{% endblock %} 
+    {% block content %}{% endblock %}
+    
+    {% block scripts %}{% endblock %}
 </body>
 </html>

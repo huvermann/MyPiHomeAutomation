@@ -49,14 +49,19 @@
     <Folder Include="HomeAutomation\static\" />
     <Folder Include="HomeAutomation\static\content\" />
     <Folder Include="HomeAutomation\static\fonts\" />
+    <Folder Include="HomeAutomation\static\img\" />
     <Folder Include="HomeAutomation\static\scripts\" />
     <Folder Include="HomeAutomation\templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.json" />
+    <Content Include="HomeAutomation\static\img\favicon.ico" />
+    <Content Include="HomeAutomation\static\scripts\paging.js" />
     <Content Include="HomeAutomation\templates\debugger.html" />
     <Content Include="HomeAutomation\templates\jsmobile.html" />
+    <Content Include="HomeAutomation\templates\jsmobileMultiPage.html" />
     <Content Include="HomeAutomation\templates\nomobile.html" />
+    <Content Include="HomeAutomation\templates\pages.html" />
     <Content Include="HomeAutomation\templates\switches.html" />
     <Content Include="notes.txt" />
     <Content Include="requirements.txt" />

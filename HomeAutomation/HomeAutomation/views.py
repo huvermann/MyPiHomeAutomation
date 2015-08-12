@@ -1,9 +1,9 @@
 ﻿"""
 Routes and views for the flask application.
 """
-
+import os
 from datetime import datetime
-from flask import render_template, Response, request, jsonify
+from flask import render_template, Response, request, jsonify, send_from_directory
 from HomeAutomation import app, provider
 
 @app.route('/')
@@ -12,7 +12,8 @@ def home():
     """Renders the home page."""
     return render_template(
         #'switches.html',
-        'debugger.html',
+        #'debugger.html',
+        'pages.html',
         title='Home Page',
         year=datetime.now().year,
     )
@@ -39,6 +40,12 @@ def post_gpio():
 @app.route('/debug')
 def showDebug():
     return render_template('debugger.html')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/img'), 'favicon.ico')
+
+
 
 
 

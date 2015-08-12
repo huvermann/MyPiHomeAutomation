@@ -49,6 +49,29 @@ class MessageBroker(WebSocket):
         # no action
         pass
 
+    def readPagesConfig(self):
+        result =  {
+        "pages": [
+            { "PageName": "Pagex1", "ID": "Page1" },
+            { "PageName": "Pagex2", "ID": "Page2" },
+            { "PageName": "Pagex3", "ID": "Page3" },
+            { "PageName": "Page4x", "ID": "Page4" }]}
+        return result
+
+    def envelopeMessage(self, messagetype, data):
+        result = {
+            "messagetype" : messagetype,
+            "data": data
+            }
+        return unicode(json.dumps(result, ensure_ascii=False))
+
+    def getPages(self, data):
+        print "sending get page response"
+        pages = self.readPagesConfig()
+        msg = self.envelopeMessage("PageList", pages)
+        self.sendMessage(msg)
+        pass
+
     def parseJsonMessage(self, message):
         if message:
             messagetype = message['messagetype']
@@ -57,6 +80,8 @@ class MessageBroker(WebSocket):
                     self.subscribe(message)
                 elif messagetype == u'unsubscribe':
                     self.unsubscribe(message)
+                elif messagetype == u'getPages':
+                    self.getPages(message)
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
