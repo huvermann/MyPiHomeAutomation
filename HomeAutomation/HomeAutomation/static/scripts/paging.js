@@ -117,29 +117,53 @@ function onMainpageUpdate(message) {
 }
 
 function pageReady() {
+
+    $('#details').on('pagebeforeshow', function (e, data) {
+        if (typeof data.toPage === "string") {
+            console.log(data.toPage);
+        } else {
+            console.log("is no string!");
+        }
+    });
+
     messageManager = new MessageManager();
-    //messageManager.onSocketConnected = function () {
-    //    messageManager.registerMessage("PageList", onPageList);
-    //}
-    
     messageManager.onSocketConnected = function () {
         console.log("My onSocketConnected.");
-        
-
     }
     messageManager.registerMessage("PageList", onPageList);
-    messageManager.registerMessage("update_page1", onMainpageUpdate);
+    messageManager.registerMessage("UpdateItems", onMainpageUpdate);
     messageManager.open("ws://localhost:8000/");
     var data = loadPageList();
     UpdatePageListView(data.pages);
 }
 
+var globalPages;
+
+function updateDetails(page) {
+    $("#detailsheader").empty().append(globalPages[page].PageName)
+    var content = "PageId: " + globalPages[page].ID + "<br/> " + "Name: " + globalPages[page].PageName;
+    content += '<form><label for="switch1">Schalter 1</label><input type="checkbox" data-role="flipswitch" name="switch1" id="switch1"></form>';
+    $('#detailcontent').empty().append(content);
+    $('#switch1').val(True).flipswitch('refresh');
+}
+
+function goDetailPage(page) {
+    $.mobile.navigate('#details');
+    updateDetails(page)
+}
+
+
+
+
 
 function UpdatePageListView(pages) {
+    globalPages = null;
     if (pages) {
+        globalPages = pages;
         var entries = "";
         for (var page in pages) {
-            entries += '<li><a href="#details">' + pages[page].PageName + '</a></li>';
+            //entries += '<li><a href="#details?id=' + pages[page].ID + '">' + pages[page].PageName + '</a></li>';
+            entries += '<li><a href="#" onclick="goDetailPage(\'' + page + '\'); return false;">' + pages[page].PageName + '</a></li>';
         }
         $("#mylistview").empty().append(entries).listview("refresh");
     }

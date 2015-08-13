@@ -3,6 +3,7 @@
 {% block content %}
 <script>
     $(document).ready(function () {
+       
         pageReady();
         console.log("ready() finished!");
     });
@@ -22,7 +23,7 @@
        </ul>
     </div>
    
-    <div data-role="footer">
+    <div data-role="footer" data-position="fixed">
         <h4>Page Footer</h4>
     </div><!-- /footer -->
 </div><!-- /page -->
@@ -30,15 +31,19 @@
 <div data-role="page" id="details">
 
     <div data-role="header">
-        <h1>Bar</h1>
+        <a href="#mainpage" data-icon="back" class="ui-btn-left">Back</a>
+        <h1 id="detailsheader">Bar</h1>
+    <a href="#edit" data-icon="gear" class="ui-btn-right">Edit</a>
     </div><!-- /header -->
 
     <div role="main" class="ui-content">
-        <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>
+        <div id="detailcontent">
+            <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>
+        </div>
         <p><a href="#mainpage">Back to foo</a></p>
     </div><!-- /content -->
 
-    <div data-role="footer">
+    <div data-role="footer" data-position="fixed">
         <h4>Page Footer</h4>
     </div><!-- /footer -->
 </div><!-- /page -->
