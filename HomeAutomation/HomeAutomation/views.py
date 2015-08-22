@@ -13,7 +13,7 @@ def home():
     return render_template(
         #'switches.html',
         #'debugger.html',
-        'pages.html',
+        'collapsible.html',
         title='Home Page',
         year=datetime.now().year,
     )

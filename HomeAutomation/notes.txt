@@ -10,3 +10,7 @@ Flask über PIP installieren:
 
 Websocket-Client installieren:
 >sudo pip install websocket-client
+
+Gauge-JQuery-Lib:
+http://www.jqueryscript.net/other/jQuery-Plugin-To-Draw-Animated-Gauges-using-Canvas-2D-API.html
+

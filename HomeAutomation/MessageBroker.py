@@ -5,6 +5,7 @@ from thread import start_new_thread
 import time
 import websocket
 import json
+import codecs
 
 
 clients = []
@@ -50,12 +51,14 @@ class MessageBroker(WebSocket):
         pass
 
     def readPagesConfig(self):
-        result =  {
-        "pages": [
-            { "PageName": "Pagex1", "ID": "Page1" },
-            { "PageName": "Pagex2", "ID": "Page2" },
-            { "PageName": "Pagex3", "ID": "Page3" },
-            { "PageName": "Page4x", "ID": "Page4" }]}
+        result = ""
+        try:
+            # Can not handle utf8!!!!
+            input_file = file("homeconfig.json", "r")
+            result = json.loads(input_file.read().decode("utf-8-sig"))
+        except Exception, e:
+            print e
+
         return result
 
     def envelopeMessage(self, messagetype, data):
@@ -63,7 +66,7 @@ class MessageBroker(WebSocket):
             "messagetype" : messagetype,
             "data": data
             }
-        return unicode(json.dumps(result, ensure_ascii=False))
+        return unicode(json.dumps(result, ensure_ascii=True))
 
     def getPages(self, data):
         print "sending get page response"

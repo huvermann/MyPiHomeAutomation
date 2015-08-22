@@ -1,0 +1,106 @@
+{
+  "pages": [
+    {
+      "PageName": "Wohnzimmer",
+      "ID": "Wohnzimmer",
+      "Items": [
+        {
+          "id": "11A64264-7A9A-4C32-95BE-9F6C67227AC7",
+          "customName": "Stehlampe",
+          "type": "switch",
+          "name": "Funksteckdose",
+          "value": 0,
+          "host": "raspberrypi"
+        },
+        {
+          "id": "EE825339-C673-4D4D-807A-40D80835FCC9",
+          "customName": "Deckenleuchte",
+          "type": "switch",
+          "name": "Funksteckdose",
+          "value": 1,
+          "host": "raspberrypi"
+        },
+        {
+          "id": "8F1D15DB-4247-482B-9F53-CF0B1CF42F89",
+          "customName": "Heizung",
+          "type": "slider",
+          "name": "Heizung",
+          "min": 10,
+          "max": 36,
+          "value": 20,
+          "host": "raspberrypi"
+        }
+      ]
+    },
+
+    {
+      "PageName": "Schlafzimmer",
+      "ID": "Page2",
+      "Items": [
+        {
+          "id": "7FCEE6E1-62F1-48CB-B563-2D99B0D798BA",
+          "customName": "Deckenleuchte",
+          "type": "switch",
+          "name": "Funksteckdose",
+          "value": 0,
+          "host": "raspberrypi"
+        },
+        {
+          "id": "ADC5F031-E437-4F79-93C4-E8516200856F",
+          "customName": "Nachttisch links",
+          "type": "switch",
+          "name": "Funksteckdose",
+          "value": 1,
+          "host": "raspberrypi"
+        },
+        {
+          "id": "AFAC571C-04B5-4D37-BC3B-0C9A02D5BA05",
+          "customName": "Heizung",
+          "type": "slider",
+          "name": "Heizung",
+          "min": 10,
+          "max": 36,
+          "value": 18,
+          "host": "raspberrypi"
+        },
+        {
+          "id": "7E463F10-8D83-4226-82A5-DFCF927FD1ED",
+          "customName": "Raumtemperatur",
+          "type": "gauge",
+          "name": "Temperatursensor",
+          "min": 10,
+          "max": 40,
+          "value": 21,
+          "unit": "C",
+          "host": "raspberrypi"
+        }
+      ]
+    },
+    {
+      "PageName": "Kueche",
+      "ID": "Page3"
+    },
+    {
+      "PageName": "Aussenbereich",
+      "ID": "Page4"
+    },
+    {
+      "PageName": "Garage",
+      "ID": "Garage"
+    },
+    {
+      "PageName": "Solar",
+      "ID": "Solar"
+    },
+    {
+      "PageName": "Chat",
+      "ID": "Chat",
+      "Items": [
+        {
+          "id": "1023D81E-C071-43F2-B7D7-3A83868CDF2C",
+          "type" :  "chat"
+        }
+      ]
+    }
+  ]
+}

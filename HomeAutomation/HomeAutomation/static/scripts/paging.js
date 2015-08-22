@@ -1,8 +1,9 @@
 ﻿
 
-function MessageManager() {
+function MessageManager(consoleObj) {
     var registry = [];
     var websocket = null;
+    var consoleObject = consoleObj;
     result = this;
 
     this.getRegistry = function() {
@@ -10,11 +11,11 @@ function MessageManager() {
     }
 
     this.onSocketClose = function (evt) {
-        console.log("On Socket Close.");
+        consoleObject.log("On Socket Close.");
     }
 
     this.handleMessageType = function(message) {
-        console.log("HandleMessageType" + message.messagetype);
+        consoleObject.log("HandleMessageType" + message.messagetype);
         if (message.messagetype in registry) {
             // Invoce message tpye handler:
             registry[message.messagetype](message);
@@ -24,7 +25,7 @@ function MessageManager() {
 
     this.onSocketMessage = function (evt) {
         // Message parsen...
-        console.log(evt);
+        consoleObject.log(evt);
         if (evt.data) {
             try {
                 var msg = JSON.parse(evt.data);
@@ -36,7 +37,7 @@ function MessageManager() {
                 }
             }
             catch (err) {
-                console.error(err);
+                consoleObject.error(err);
            
             }
         }
@@ -44,7 +45,7 @@ function MessageManager() {
     }
 
     this.onSocketError = function (evt) {
-        console.log("error:" + evt.data)
+        consoleObject.log("error:" + evt.data)
     }
 
     this.sendMessage = function (message) {
@@ -118,15 +119,7 @@ function onMainpageUpdate(message) {
 
 function pageReady() {
 
-    $('#details').on('pagebeforeshow', function (e, data) {
-        if (typeof data.toPage === "string") {
-            console.log(data.toPage);
-        } else {
-            console.log("is no string!");
-        }
-    });
-
-    messageManager = new MessageManager();
+    messageManager = new MessageManager(console);
     messageManager.onSocketConnected = function () {
         console.log("My onSocketConnected.");
     }
@@ -140,20 +133,19 @@ function pageReady() {
 var globalPages;
 
 function updateDetails(page) {
+    console.log("-- updateDetails called --");
     $("#detailsheader").empty().append(globalPages[page].PageName)
     var content = "PageId: " + globalPages[page].ID + "<br/> " + "Name: " + globalPages[page].PageName;
     content += '<form><label for="switch1">Schalter 1</label><input type="checkbox" data-role="flipswitch" name="switch1" id="switch1"></form>';
     $('#detailcontent').empty().append(content);
-    $('#switch1').val(True).flipswitch('refresh');
+    $('#switch1').val('on').flipswitch('refresh');
+
 }
 
 function goDetailPage(page) {
     $.mobile.navigate('#details');
     updateDetails(page)
 }
-
-
-
 
 
 function UpdatePageListView(pages) {
@@ -163,7 +155,7 @@ function UpdatePageListView(pages) {
         var entries = "";
         for (var page in pages) {
             //entries += '<li><a href="#details?id=' + pages[page].ID + '">' + pages[page].PageName + '</a></li>';
-            entries += '<li><a href="#" onclick="goDetailPage(\'' + page + '\'); return false;">' + pages[page].PageName + '</a></li>';
+            entries += '<li><a href="#" pdata="'+page+'" onclick="goDetailPage(\'' + page + '\'); return false;">' + pages[page].PageName + '</a></li>';
         }
         $("#mylistview").empty().append(entries).listview("refresh");
     }
