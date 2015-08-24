@@ -62,5 +62,6 @@ function initCollapsiblePage() {
     console.log("initCollapsiblePage");
     container = new Injector(bootstrap);
     registerMessages(container.messageManager);
-    container.messageManager.open("ws://localhost:8000/");
+    url = 'ws://' + location.hostname + ':8000/';
+    container.messageManager.open(url);
 }

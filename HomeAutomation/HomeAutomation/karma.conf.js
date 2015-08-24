@@ -10,20 +10,25 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+      //frameworks: ['jquery-1.3.2', 'jasmine-jquery', 'jasmine'],
+    frameworks: ['jasmine-jquery', 'jasmine'],
 
 
     // list of files / patterns to load in the browser
     files: [
+      'static/jquery/jquery-1.11.3.js',
+      'static/jquery/jquery.mobile-1.4.5.min.js',
       'static/scripts/*.js',
       'static/scripts/tests/*.js'
+      
     ],
 
 
     // list of files to exclude
     exclude: [
 	'static/scripts/_references.js',
-	'static/scripts/jquery.gauge.js'
+	'static/scripts/jquery.gauge.js',
+    'static/jquery/*.*'
     ],
 
 
@@ -58,7 +63,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    //browsers: ['Chrome', 'Firefox', 'IETester'],
+	browsers: ['Chrome', 'IE', 'Firefox'],
 
 
     // Continuous Integration mode

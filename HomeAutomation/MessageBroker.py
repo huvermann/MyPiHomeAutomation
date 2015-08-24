@@ -6,6 +6,7 @@ import time
 import websocket
 import json
 import codecs
+import os
 
 
 clients = []
@@ -51,10 +52,12 @@ class MessageBroker(WebSocket):
         pass
 
     def readPagesConfig(self):
+        filepath = os.path.dirname(__file__) + '\homeconfig.json'
+        print "filepath: " + filepath
         result = ""
         try:
             # Can not handle utf8!!!!
-            input_file = file("homeconfig.json", "r")
+            input_file = file(filepath, "r")
             result = json.loads(input_file.read().decode("utf-8-sig"))
         except Exception, e:
             print e
