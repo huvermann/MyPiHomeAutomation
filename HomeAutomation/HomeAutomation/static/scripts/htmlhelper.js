@@ -7,7 +7,6 @@
 
 function refreshGauge(jq) {
     // refresh gauge
-    console.log("refreshGauge");
     jq('canvas[data-role=gauge]').each(function () {
         console.log(this);
         // this ist the gauge
@@ -114,7 +113,6 @@ function itemsToComponents(items) {
 /// Generates collapsibles from page list.
 ///
 function pagesToCollapsible(pages, targetElement) {
-    console.log("pagesToCollapsible");
     var html = "";
     for (var page in pages) {
         html += '<div data-role="collapsible" id="coll_page_' + pages[page].ID + '">';

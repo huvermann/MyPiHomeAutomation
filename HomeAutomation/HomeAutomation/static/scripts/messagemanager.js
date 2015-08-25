@@ -4,6 +4,7 @@ function MessageManagerII(injector) {
     var registry = [];
     var websocket = null;
     var consoleObject = injector.console;
+    this.parentElement = injector.parent;
     result = this;
 
     this.getRegistry = function () {
@@ -15,21 +16,18 @@ function MessageManagerII(injector) {
     }
 
     this.onSocketClose = function (evt) {
-        consoleObject.log("On Socket Close.");
     }
 
     this.handleMessageType = function (message) {
-        consoleObject.log("HandleMessageType" + message.messagetype);
         if (message.messagetype in registry) {
             // Invoce message tpye handler:
-            registry[message.messagetype](message);
+            registry[message.messagetype].callback(message, registry[message.messagetype].targetElement);
         }
 
     }
 
     this.onSocketMessage = function (evt) {
         // Message parsen...
-        consoleObject.log(evt);
         if (evt.data) {
             try {
                 var msg = JSON.parse(evt.data);
@@ -41,7 +39,6 @@ function MessageManagerII(injector) {
                 }
             }
             catch (err) {
-                console.log(evt);
                 consoleObject.error(err);
 
             }
@@ -81,7 +78,6 @@ function MessageManagerII(injector) {
     }
 
     this.onSocketOpen = function (evt) {
-        console.log("onSocketOpen called.");
         // subscribe the message types
         if (this.messageManager) {
             this.messageManager.subscribeMessages();
@@ -90,8 +86,11 @@ function MessageManagerII(injector) {
     }
 
 
-    this.registerMessage = function (messageType, callback) {
-        registry[messageType] = callback;
+    this.registerMessage = function (messageType, callback, targetElement) {
+        registry[messageType] = {
+            callback: callback,
+            targetElement: targetElement
+        };
     }
 
     this.createWebSocket = function (wsuri) {

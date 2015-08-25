@@ -2,7 +2,6 @@
 var container = null;
 
 function bootstrap() {
-    console.log("Bootstrap was called");
     this.jqm = $;
     this.console = console;
     this.messageManager = new MessageManagerII(this);
@@ -12,7 +11,7 @@ function bootstrap() {
 ///
 /// Hanlde UpdateItems
 function onUpdateItems(message) {
-    console.log("onUpdateItems called");
+    
 }
 
 ///
@@ -59,9 +58,8 @@ function registerMessages(messageManager) {
 /// Initialize everything
 ///
 function initCollapsiblePage() {
-    console.log("initCollapsiblePage");
     container = new Injector(bootstrap);
     registerMessages(container.messageManager);
     url = 'ws://' + location.hostname + ':8000/';
-    container.messageManager.open(url);
+    //container.messageManager.open(url);
 }

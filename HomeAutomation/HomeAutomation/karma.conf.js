@@ -16,8 +16,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'static/jquery/jquery-1.11.3.js',
-      'static/jquery/jquery.mobile-1.4.5.min.js',
+      //'static/jquery/jquery-1.11.3.js',
+      //'static/jquery/jquery.mobile-1.4.5.js',
       'static/scripts/*.js',
       'static/scripts/tests/*.js'
       
@@ -26,9 +26,10 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-	'static/scripts/_references.js',
-	'static/scripts/jquery.gauge.js',
-    'static/jquery/*.*'
+	'static/scripts/_references.js'
+    //'static/jquery/*.*'
+    
+    //'static/scripts/pageManager.js'
     ],
 
 
@@ -63,8 +64,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    //browsers: ['Chrome', 'Firefox', 'IETester'],
-	browsers: ['Chrome', 'IE', 'Firefox'],
+      //browsers: ['Chrome', 'IE', 'Firefox'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
