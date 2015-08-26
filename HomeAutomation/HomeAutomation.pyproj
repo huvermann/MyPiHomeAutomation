@@ -288,7 +288,6 @@
     <Content Include="HomeAutomation\static\jquery\jquery.mobile.structure-1.4.5.min.css" />
     <Content Include="HomeAutomation\static\jquery\jquery.mobile.theme-1.4.5.css" />
     <Content Include="HomeAutomation\static\jquery\jquery.mobile.theme-1.4.5.min.css" />
-    <Content Include="HomeAutomation\static\scripts\collapsible.js" />
     <Content Include="HomeAutomation\static\scripts\htmlhelper.js" />
     <Content Include="HomeAutomation\static\scripts\injector.js" />
     <Content Include="HomeAutomation\static\scripts\jquery-1.11.3.js" />
@@ -296,22 +295,18 @@
     <Content Include="HomeAutomation\static\scripts\jquery.mobile-1.4.5.js" />
     <Content Include="HomeAutomation\static\scripts\jquery.servicemenuewidget.js" />
     <Content Include="HomeAutomation\static\scripts\messagemanager.js" />
-    <Content Include="HomeAutomation\static\scripts\paging.js" />
     <Content Include="HomeAutomation\static\scripts\tests\injector.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\jquerymobile.workaround.tests.js">
       <SubType>Code</SubType>
     </Content>
     <Content Include="HomeAutomation\static\scripts\tests\messagemanager.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\ui.teests.js" />
-    <Content Include="HomeAutomation\templates\collapsible.html" />
     <Content Include="HomeAutomation\templates\debugger.html" />
     <Content Include="HomeAutomation\templates\jsmobile.html" />
     <Content Include="HomeAutomation\templates\jsmobileMultiPage.html" />
     <Content Include="HomeAutomation\templates\mainmenue.html" />
     <Content Include="HomeAutomation\templates\nomobile.html" />
-    <Content Include="HomeAutomation\templates\pages.html" />
     <Content Include="HomeAutomation\templates\scripts_template.html" />
-    <Content Include="HomeAutomation\templates\switches.html" />
     <Content Include="homeconfig.json" />
     <Content Include="notes.txt" />
     <Content Include="requirements.txt" />
