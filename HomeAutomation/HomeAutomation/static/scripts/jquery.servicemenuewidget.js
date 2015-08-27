@@ -1,27 +1,27 @@
 ﻿(function ($) {
     $.widget("homeautomation.servicemenuwidget", $.mobile.widget, {
         options: {
-            height: 200,
-            url: 'ws://' + location.hostname + ':8000/'
+            url: 'ws://' + location.hostname + ':8000/',
+            mode: 'default'
         },
 
         configure: function(){
             this.jqm = $;
             this.console = console;
-            this.MessageManager = new MessageManagerII(this); 
+            this.MessageManager = new MessageManagerII(this);
         },
 
         servicelocator: null,
 
         /** Constructor **/
         _create: function () {
+            console.log("_create has been called");
+            loading('show');
             this.servicelocator = new Injector(this.configure);
             inputElement = this.element;
-            console.log(inputElement);
             var opts = $.extend(this.options, inputElement.data("options"));
             $(document).trigger("servicemenuwidgetcreate");
             inputElement.empty().append(this._initContent());
-
             // start MessageManager:
             var mm = this.servicelocator.MessageManager;
             this.registerMessages(mm);
@@ -30,12 +30,11 @@
 
         /** Custom method to handle updates. */
         _update: function () {
-            console.log("_update from servicemenuwidget");
             var inputElement = this.element;
             var opts = $.extend(this.options, inputElement.data("options"));
             $(document).trigger("servicemenuwidgetupdate");
-            refreshJQueryComponents($);
-
+            
+            refreshJQueryComponents();
         },
 
         /* Externally callable method to force a refresh of the widget. */
@@ -54,18 +53,43 @@
         },
 
         onPageList: function (message, targetElement) {
-            console.log("On page list from Widget");
-            console.log(targetElement);
             if (message.data) {
                 pagesToCollapsible(message.data.pages, targetElement);
             }
-            //$('div[data-role=servicemenuwidget]').servicemenuwidget();
-            refreshJQueryComponents($);
+            refreshJQueryComponents(targetElement);
+            loading("hide");
         },
+
+        onUserChangedSwitch: function(event, ui){            
+            var id = this.id,
+            value = this.value;
+            console.log(id + " has been changed! " + value);
+            var messagecomponent = $(this).attr('messagecomponent');
+            $("#" + messagecomponent).servicemenuwidget("sendUIMessage", id, value);
+        },
+
+        onUserChangedSlider: function (event, ui) {
+            var value = $(this).slider().val();
+            var id = this.id;
+            var messagecomponent = $(this).attr('messagecomponent');
+            $("#" + messagecomponent).servicemenuwidget("sendUIMessage", id, value);
+        },
+
 
         onChatMessage: function (message) {
             console.log("OnChatMessage from widget");
+        },
+
+        sendUIMessage(id, value) {
+            console.log("send message***");
+            var message = {
+                "messagetype": "UI-Message",
+                "data": { id: id, value: value }
+            };
+            this.servicelocator.MessageManager.sendMessage(JSON.stringify(message));
         }
+
+        
     });
 
     /* Handler which initialises all widget instances during page creation. */

@@ -53,6 +53,7 @@ function MessageManagerII(injector) {
     this.sendMessage = function (message) {
         if (message) {
             websocket.send(message);
+            console.log("mm send messag");
         }
     }
 

@@ -296,9 +296,7 @@
     <Content Include="HomeAutomation\static\scripts\jquery.servicemenuewidget.js" />
     <Content Include="HomeAutomation\static\scripts\messagemanager.js" />
     <Content Include="HomeAutomation\static\scripts\tests\injector.tests.js" />
-    <Content Include="HomeAutomation\static\scripts\tests\jquerymobile.workaround.tests.js">
-      <SubType>Code</SubType>
-    </Content>
+    <Content Include="HomeAutomation\static\scripts\tests\jquery.servicemenuwidget.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\messagemanager.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\ui.teests.js" />
     <Content Include="HomeAutomation\templates\debugger.html" />

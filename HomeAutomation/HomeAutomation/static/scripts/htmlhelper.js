@@ -1,14 +1,27 @@
-﻿function refreshJQueryComponents(jq) {
-    jq('div[data-role=collapsible]').collapsible();
-    jq('input[data-role=flipswitch]').flipswitch();
-    jq('#mainpage').trigger('create');
-    refreshGauge(jq);
+﻿
+function loading(showOrHide) {
+    setTimeout(function () {
+        $.mobile.loading(showOrHide);
+    }, 1);
 }
 
-function refreshGauge(jq) {
+function refreshJQueryComponents(targetElement) {
+    var instance = targetElement.servicemenuwidget().servicemenuwidget('instance');
+    console.log("components refresh");
+    $('div[data-role=collapsible]').collapsible();
+    $('select[data-role=flipswitch]').flipswitch();
+
+    $('select[data-role=flipswitch]').on("change", instance.onUserChangedSwitch);
+    $('input[data-type=range]').on('slidestop', instance.onUserChangedSlider);
+    $('input[data-type=range]').slider().slider("refresh");
+    refreshGauge();
+    $('#mainpage').trigger('create');
+    
+}
+
+function refreshGauge() {
     // refresh gauge
-    jq('canvas[data-role=gauge]').each(function () {
-        console.log(this);
+    $('canvas[data-role=gauge]').each(function () {
         // this ist the gauge
         var min = (this.attributes['gauge-min']) ? this.attributes['gauge-min'].value : 0;
         var max = (this.attributes['gauge-max']) ? this.attributes['gauge-max'].value : 100;
@@ -38,23 +51,27 @@ function itemToTemperatureComponent(item){
     return html;
 }
 
-function itemToSliderComponent(item){
+function itemToSliderComponent(item, messageComponentId) {
     var html = '<div style="max-width: 300px">';
     html += '<label for="' + item.id + '">' + item.customName + '</label>';
-    html += '<input type="range" name="' + item.id + ' id="' + item.id + '" ';
+    html += '<input data-type="range" name="' + item.id + '" id="' + item.id + '" ';
     html += 'min="' + item.min + '" ';
     html += 'max=' + item.max + '" ';
     html += 'value="' + item.value + '" ';
     html += 'data-show-value="true" ';
+    html += 'messagecomponent="' + messageComponentId + '" ';
     html += '></div>';
     return html;
 }
 
-function itemToSwitchComponent(item){
+function itemToSwitchComponent(item, messageComponentId){
     var html = '<label for="' + item.id + '">';
     html += item.customName;
     html += '</label>';
-    html += '<input type="checkbox" data-role="flipswitch" id="' + item.id + '">';
+    html += '<select data-role="flipswitch" id="' + item.id + '" messagecomponent="' + messageComponentId + '">';
+    html += '<option value="0">Aus</option> ';
+    html += '<option value="1">An</option>';
+    html += '</select>';
     html += '';
     
     return html;
@@ -82,27 +99,26 @@ function itemToChatComponent(item) {
     return html;
 }
 
-function itemsToComponents(items) {
-    console.log('itemsToComponents');
+function itemsToComponents(items, messageComponentId) {
     var html = "<form>";
     for (var item in items) {
         if (items[item].type) {
             switch (items[item].type) {
                 case "switch":
-                    html += itemToSwitchComponent(items[item]);
+                    html += itemToSwitchComponent(items[item], messageComponentId);
                     break;
                 case "slider":
-                    html += itemToSliderComponent(items[item]);
+                    html += itemToSliderComponent(items[item], messageComponentId);
                     break;
                 case "gauge":
-                    html += itemToGaugeComponent(items[item]);
+                    html += itemToGaugeComponent(items[item], messageComponentId);
                     break;
                 case "chat":
-                    html += itemToChatComponent(items[item]);
+                    html += itemToChatComponent(items[item], messageComponentId);
                     break;
 
                 default:
-                    html += itemToUnknownComponent(items[item]);
+                    html += itemToUnknownComponent(items[item], messageComponentId);
             }
         }
     }
@@ -118,7 +134,7 @@ function pagesToCollapsible(pages, targetElement) {
         html += '<div data-role="collapsible" id="coll_page_' + pages[page].ID + '">';
         html += '<h4>' + pages[page].PageName+ '</h4>';
         if (pages[page].Items) {
-            html += itemsToComponents(pages[page].Items);
+            html += itemsToComponents(pages[page].Items, $(targetElement).attr("id"));
         } else {
             html += "no items found";
         }

@@ -7,4 +7,5 @@
     it("should pass on checked elelment", function () {
         expect($('#checked')).toBeChecked()
     });
-})
+});
+
