@@ -17,9 +17,19 @@
         }
 
         function createWebSocketMessage(messageType, data) {
+            var dataObj = null;
+            try {
+                // if data is json string, parse to object.
+                dataObj = JSON.parse(data);
+            }
+            catch (err) {
+                // if parse fails, put plain string into data.
+                dataObj = data;
+            }
+
             var msg = {
                 "messagetype": messageType,
-                "data": data
+                "data": dataObj
             }
             return JSON.stringify(msg);
         }
@@ -113,6 +123,11 @@
             }
         }
 
+        function prepareHwMessage() {
+            document.myform.messagetype.value = "Hardware";
+            document.myform.inputtext.value = '{"hwid": "4711", "value": 0}';
+        }
+
     </script>
     <p>Message Debugger</p>
 
@@ -132,6 +147,7 @@
         <input type="button" name=clearButton value="Clear" onClick="clearText();">
         <input type="button" name=disconnectButton value="Disconnect" onClick="doDisconnect();">
         <input type="button" name=connectButton value="Connect" onClick="doConnect();">
+        <input type="button" name="sendhwmessage" value="HW Switch off" onclick="prepareHwMessage(); return false;" />
     </p>
 
 </form>

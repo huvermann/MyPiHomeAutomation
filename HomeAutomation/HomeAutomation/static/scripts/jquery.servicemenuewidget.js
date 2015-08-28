@@ -49,6 +49,7 @@
 
         registerMessages: function (messageManager) {
             messageManager.registerMessage("PageList", this.onPageList, this.element);
+            messageManager.registerMessage("Hardware", this.onHardwareMessage, this.element);
             messageManager.registerMessage("Chat", this.onChatMessage, this.element);
         },
 
@@ -58,6 +59,38 @@
             }
             refreshJQueryComponents(targetElement);
             loading("hide");
+        },
+
+        onHardwareMessage: function(message, targetElement){
+            console.log("Hardware message received");
+            console.log(message);
+            var hwid = message.data.hwid;
+            var value = message.data.value;
+            if (typeof hwid !== "undefined" && typeof value !== "undefined") {
+                $('[hardwareId="' + hwid + '"]').each(function () {
+                    // Update all items assigned to specific hardware id
+                    if ($(this).attr("data-role") == "flipswitch") {
+                        console.log("Flipswitch detected!!");
+                        var flip = $(this).flipswitch();
+                        var actual = flip.val();
+                        if (actual != value) {
+                            // Change flipswitch value and refresh.
+                            flip.val(value);
+                            $(this).flipswitch("refresh");
+                            console.log("Flipswitch updated!");
+                        } else {
+                            console.log("Not updated, value is unchanged!");
+                        }
+                        
+                        
+                    };
+                });
+
+            } else {
+                console.log(typeof message.data);
+                console.log(typeof value);
+                console.error('Invalid hardware message!', message);
+            };
         },
 
         onUserChangedSwitch: function(event, ui){            
@@ -84,7 +117,7 @@
             console.log("send message***");
             var message = {
                 "messagetype": "UI-Message",
-                "data": { id: id, value: value }
+                "data": { hwid: id, value: value }
             };
             this.servicelocator.MessageManager.sendMessage(JSON.stringify(message));
         }

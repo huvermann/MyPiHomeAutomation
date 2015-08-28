@@ -60,6 +60,7 @@ function itemToSliderComponent(item, messageComponentId) {
     html += 'value="' + item.value + '" ';
     html += 'data-show-value="true" ';
     html += 'messagecomponent="' + messageComponentId + '" ';
+    html += 'hardwareId="' + item.id + '" ';
     html += '></div>';
     return html;
 }
@@ -68,7 +69,9 @@ function itemToSwitchComponent(item, messageComponentId){
     var html = '<label for="' + item.id + '">';
     html += item.customName;
     html += '</label>';
-    html += '<select data-role="flipswitch" id="' + item.id + '" messagecomponent="' + messageComponentId + '">';
+    html += '<select data-role="flipswitch" id="' + item.id + '" messagecomponent="' + messageComponentId + '" ';
+    html += 'hardwareId="' + item.id + '" ';
+    html += '>'; // select
     html += '<option value="0">Aus</option> ';
     html += '<option value="1">An</option>';
     html += '</select>';
@@ -83,7 +86,9 @@ function itemToGaugeComponent(item) {
     html += 'gauge-min="' + item.min +'" ';
     html += 'gauge-max="' + item.max + '" ';
     html += 'gauge-unit="' + item.unit + '" ';
-    html += 'value="' + item.value + '"></canvas>';
+    html += 'value="' + item.value + '" ';
+    html += 
+    html += '></canvas>';
     return html;
 }
 
