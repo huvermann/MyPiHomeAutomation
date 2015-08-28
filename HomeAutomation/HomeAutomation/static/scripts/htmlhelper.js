@@ -87,7 +87,7 @@ function itemToGaugeComponent(item) {
     html += 'gauge-max="' + item.max + '" ';
     html += 'gauge-unit="' + item.unit + '" ';
     html += 'value="' + item.value + '" ';
-    html += 
+    html += 'hardwareId="' + item.id + '" ';
     html += '></canvas>';
     return html;
 }

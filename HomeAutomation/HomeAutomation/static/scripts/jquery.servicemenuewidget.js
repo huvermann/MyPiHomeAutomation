@@ -61,29 +61,93 @@
             loading("hide");
         },
 
+        getElementType: function (element) {
+            var result = null;
+            if ($(element).attr("data-role") == "flipswitch") {
+                return "FlipSwitch";
+            }
+            if ($(element).attr("data-type") == "range") {
+                return "Slider";
+            };
+            if ($(element).attr("data-role") == "gauge") {
+                return "Gauge";
+            }
+            return result;
+        },
+
+        changeFlipSwitch: function(flipswitch, value){
+            var flip = $(flipswitch).flipswitch();
+            var actual = flip.val();
+            if (actual != value) {
+                // Change flipswitch value and refresh.
+                flip.val(value);
+                $(flipswitch).flipswitch("refresh");
+            } else {
+                console.log("Not updated, value is unchanged!");
+            }
+        },
+
+        changeSlider: function (slider, value) {
+            var sli = $(slider).slider();
+            current = sli.val();
+            if (current != value) {
+                sli.val(value);
+                $(slider).slider("refresh");
+            }
+        },
+
+        changeGauge: function (gauge, value) {
+            // this ist the gauge
+            var min = (gauge.attributes['gauge-min']) ? gauge.attributes['gauge-min'].value : 0;
+            var max = (gauge.attributes['gauge-max']) ? gauge.attributes['gauge-max'].value : 100;
+            var unit = (gauge.attributes['gauge-unit']) ? gauge.attributes['gauge-unit'].value : "°C";
+            //var value = (gauge.attributes['value']) ? gauge.attributes['value'].value : 0;
+            var options = {
+                min: min,
+                max: max,
+                unit: unit,
+                color: '#3366FF',
+                colorAlpha: 1,
+                bgcolor: '#00FF99', //"#222",
+                type: "halfcircle"
+            };
+            $(gauge).gauge(value, options);
+
+            
+        },
+
         onHardwareMessage: function(message, targetElement){
             console.log("Hardware message received");
             console.log(message);
             var hwid = message.data.hwid;
             var value = message.data.value;
+
             if (typeof hwid !== "undefined" && typeof value !== "undefined") {
                 $('[hardwareId="' + hwid + '"]').each(function () {
+
+                    elementType = targetElement.servicemenuwidget('getElementType', this);
+                    console.log("ElementType: " + elementType);
                     // Update all items assigned to specific hardware id
-                    if ($(this).attr("data-role") == "flipswitch") {
-                        console.log("Flipswitch detected!!");
-                        var flip = $(this).flipswitch();
-                        var actual = flip.val();
-                        if (actual != value) {
-                            // Change flipswitch value and refresh.
-                            flip.val(value);
-                            $(this).flipswitch("refresh");
-                            console.log("Flipswitch updated!");
-                        } else {
-                            console.log("Not updated, value is unchanged!");
-                        }
-                        
-                        
-                    };
+                    switch (elementType) {
+                        case "FlipSwitch":
+                            // set flipswitch()
+                            targetElement.servicemenuwidget('changeFlipSwitch', this, value);
+                            break;
+                        case "Slider":
+                            // set slider
+                            targetElement.servicemenuwidget('changeSlider', this, value);
+                            break;
+                        case "Gauge":
+                            // set gauge
+                            targetElement.servicemenuwidget('changeGauge', this, value);
+                            break;
+                        default:
+                            // unknown element
+                            console.error("unknown element: " + elementType, this);
+
+                    }// switch
+
+                   
                 });
 
             } else {

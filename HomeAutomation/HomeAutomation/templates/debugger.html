@@ -123,9 +123,20 @@
             }
         }
 
-        function prepareHwMessage() {
+        function prepareHwMessage(value) {
             document.myform.messagetype.value = "Hardware";
-            document.myform.inputtext.value = '{"hwid": "4711", "value": 0}';
+            document.myform.inputtext.value = '{"hwid": "4711", "value": ' + value + '}';
+        }
+
+        function prepareSliderMessage(value) {
+            document.myform.messagetype.value = "Hardware";
+            document.myform.inputtext.value = '{"hwid": "8F1D15DB-4247-482B-9F53-CF0B1CF42F89", "value": ' + value + '}';
+        }
+
+        function preparegaugeMessage(value) {
+            document.myform.messagetype.value = "Hardware";
+            document.myform.inputtext.value = '{"hwid": "7E463F10-8D83-4226-82A5-DFCF927FD1ED", "value": ' + value + '}';
+
         }
 
     </script>
@@ -147,7 +158,10 @@
         <input type="button" name=clearButton value="Clear" onClick="clearText();">
         <input type="button" name=disconnectButton value="Disconnect" onClick="doDisconnect();">
         <input type="button" name=connectButton value="Connect" onClick="doConnect();">
-        <input type="button" name="sendhwmessage" value="HW Switch off" onclick="prepareHwMessage(); return false;" />
+        <input type="button" name="sendhwmessage" value="HW Switch off" onclick="prepareHwMessage(0); return false;" />
+        <input type="button" name="sendhwmessage1" value="HW Switch on" onclick="prepareHwMessage(1); return false;" />
+        <input type="button" name="sendhwmessage2" value="slider" onclick="prepareSliderMessage(10); return false;" />
+        <input type="button" name="sendhwmessage3" value="gauge" onclick="preparegaugeMessage(10); return false;" />
     </p>
 
 </form>
