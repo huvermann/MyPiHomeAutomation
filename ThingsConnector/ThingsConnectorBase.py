@@ -77,7 +77,7 @@ class ThingsConectorBase(object):
             self.sendSocketErrorMessage(self.createJSONErrorMessage(item, e))
 
     def on_open(self, ws):
-        print "### opened ###"
+        """When connected, the clients sends sensor updates"""
         while(True):
             for item in self._items:
                 self.sendUpdateInfo(item)
