@@ -46,6 +46,10 @@
     <Compile Include="runserver.py" />
     <Compile Include="HomeAutomation\__init__.py" />
     <Compile Include="HomeAutomation\views.py" />
+    <Compile Include="SimpleWebSocketServer\SimpleExampleServer.py" />
+    <Compile Include="SimpleWebSocketServer\SimpleHTTPSServer.py" />
+    <Compile Include="SimpleWebSocketServer\SimpleWebSocketServer.py" />
+    <Compile Include="SimpleWebSocketServer\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HomeAutomation\" />
@@ -62,6 +66,7 @@
     <Folder Include="HomeAutomation\static\scripts\" />
     <Folder Include="HomeAutomation\templates\" />
     <Folder Include="HomeAutomation\Tests\Python\" />
+    <Folder Include="SimpleWebSocketServer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.json" />
@@ -317,6 +322,9 @@
     <Content Include="HomeAutomation\static\scripts\_references.js" />
     <Content Include="HomeAutomation\templates\index.html" />
     <Content Include="HomeAutomation\templates\layout.html" />
+    <Content Include="SimpleWebSocketServer\SimpleWebSocketServer.pyc" />
+    <Content Include="SimpleWebSocketServer\websocket.html" />
+    <Content Include="SimpleWebSocketServer\__init__.pyc" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
