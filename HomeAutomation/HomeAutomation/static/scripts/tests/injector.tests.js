@@ -1,4 +1,5 @@
-﻿describe("Injector Tests", function () {
+﻿// Injector tests.
+describe("Injector Tests", function () {
     function dummyInjectorTestFunc() {
         this.foo = function () {
             return "foo";
