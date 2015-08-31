@@ -62,6 +62,7 @@ function itemToSliderComponent(item, messageComponentId) {
     html += 'data-show-value="true" ';
     html += 'messagecomponent="' + messageComponentId + '" ';
     html += 'hardwareId="' + item.id + '" ';
+    html += 'disabled="disabled" ';
     html += '></div>';
     return html;
 }
@@ -72,6 +73,7 @@ function itemToSwitchComponent(item, messageComponentId){
     html += '</label>';
     html += '<select data-role="flipswitch" id="' + item.id + '" messagecomponent="' + messageComponentId + '" ';
     html += 'hardwareId="' + item.id + '" ';
+    html += 'disabled="disabled" ';
     html += '>'; // select
     html += '<option value="0">Aus</option> ';
     html += '<option value="1">An</option>';

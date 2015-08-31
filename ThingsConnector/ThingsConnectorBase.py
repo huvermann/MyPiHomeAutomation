@@ -1,6 +1,7 @@
 ﻿import websocket
 import time
 import json
+from thread import start_new_thread
 
 
 def on_message(ws, message):
@@ -37,7 +38,7 @@ class ThingsConectorBase(object):
 
     def createJSONMessage(self, item, value):
         msg = {
-            "messagetype" : "hardware",
+            "messagetype" : "Hardware",
             "data" : {
                 "hwid": item.getId(),
                 "value": "%f" % value}
@@ -46,7 +47,7 @@ class ThingsConectorBase(object):
 
     def createJSONErrorMessage(self, item, error):
         msg = {
-            "messagetype" : "error",
+            "messagetype" : "Error",
             "data" : {
                 "hwid": item.getId(),
                 "error": item.getLastError()
@@ -83,20 +84,67 @@ class ThingsConectorBase(object):
         js=json.dumps(msg)
         self.ws.send(js)
 
+    def hardwareLoop(self, ws):
+        print "Hardware loop started..."
+        while(True):
+            time.sleep(self.pollingTime)
+            for item in self._items:
+                self.sendUpdateInfo(item)
+            print "Next loop"
 
     def on_open(self, ws):
         """When connected, the clients sends sensor updates"""
         self.registerForMessages()
+        start_new_thread(self.hardwareLoop, (ws,))
 
-        while(True):
-            for item in self._items:
-                self.sendUpdateInfo(item)
-        print "Loop ended"
-        time.sleep(self.pollingTime)
+            
+        
 
     def parseMessage(self, ws, message):
         """Implement the message parser"""
+        try:
+            #item = json.loads(message.replace("u'", "'"))
+            item = json.loads(message.encode('utf-8'))
+            if (item):
+                self.parseJsonMessage(ws, item);
+        except Exception, e:
+            print e
         pass
+
+    def parseJsonMessage(self, ws, message):
+        if message:
+            messagetype = message['messagetype']
+            if messagetype:
+                if messagetype == u'UI-Message':
+                    self.handleUIMessage(ws, message)
+                elif messagetype == "implementThis":
+                    # implement message type
+                    pass
+        pass
+
+    def handleUIMessage(self, ws, message):
+        if (message['data']):
+            print "***********************"
+            print "***** handle message"
+            print message['data']
+            data = message['data']
+            hwid = data['hwid']
+            value = float(data['value'])
+            self.changeHardware(ws, hwid, value)
+            # send the message
+            
+
+    def changeHardware(self, ws, hwid, value):
+        for item in self._items:
+            if (item.itemId == hwid):
+                item.setItemValue(value)
+                newMessage = self.createJSONMessage(item, value)
+                msg = json.dumps(newMessage)
+                ws.send(msg)
+
+
+
+                    
 
 
 

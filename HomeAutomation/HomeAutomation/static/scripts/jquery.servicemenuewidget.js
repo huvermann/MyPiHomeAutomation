@@ -77,10 +77,12 @@
 
         changeFlipSwitch: function(flipswitch, value){
             var flip = $(flipswitch).flipswitch();
+            flip.flipswitch({disabled: false});
+           
             var actual = flip.val();
             if (actual != value) {
                 // Change flipswitch value and refresh.
-                flip.val(value);
+                flip.val(parseInt(value));
                 $(flipswitch).flipswitch("refresh");
             } else {
                 console.log("Not updated, value is unchanged!");
@@ -89,6 +91,7 @@
 
         changeSlider: function (slider, value) {
             var sli = $(slider).slider();
+            sli.slider('enable');
             current = sli.val();
             if (current != value) {
                 sli.val(value);

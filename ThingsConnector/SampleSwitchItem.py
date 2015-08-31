@@ -1,4 +1,4 @@
-from ThingsItemBase import *
+﻿from ThingsItemBase import *
 import ItemTypes
 
 class SampleSwitchItem(ThingsItemBase):
@@ -6,5 +6,6 @@ class SampleSwitchItem(ThingsItemBase):
     def __init__(self, id, initValue, description):
         itemType = ItemTypes.Switch
         self.itemId = id
+        self.value = int(initValue)
         return super(SampleSwitchItem, self).__init__(id, itemType, description)
 

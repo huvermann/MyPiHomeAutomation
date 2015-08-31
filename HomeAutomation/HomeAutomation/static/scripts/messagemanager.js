@@ -19,19 +19,20 @@ function MessageManagerII(injector) {
     }
 
     this.handleMessageType = function (message) {
-        if (message.messagetype in registry) {
-            // Invoce message tpye handler:
-            registry[message.messagetype].callback(message, registry[message.messagetype].targetElement);
+        if (message) {
+            if (message.messagetype in registry) {
+                // Invoce message tpye handler:
+                registry[message.messagetype].callback(message, registry[message.messagetype].targetElement);
+            } 
         }
-
     }
 
     this.onSocketMessage = function (evt) {
         // Message parsen...
-        if (evt.data) {
+        if (evt && evt.data) {
             try {
                 var msg = JSON.parse(evt.data);
-                if (msg.messagetype) {
+                if (msg != null && msg.messagetype) {
                     if (this.messageManager) {
                         this.messageManager.handleMessageType(msg);
                     }
@@ -39,7 +40,12 @@ function MessageManagerII(injector) {
                 }
             }
             catch (err) {
-                consoleObject.error(err);
+                if (consoleObject) {
+                    consoleObject.error(err);
+                } else {
+                    console.error(err);
+                }
+                
 
             }
         }

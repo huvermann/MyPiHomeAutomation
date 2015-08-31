@@ -36,4 +36,60 @@
         expect(function () { var actual = mm.createWebSocket(""); }).toThrow();
         expect(function () { var xx = mm.createWebSocket("ws://localhost:9999"); }).not.toThrow();
     });
+
+    it("ignores invalid messages", function () {
+        var container = function () { }
+        var mm = new MessageManagerII(container);
+        mm.handleMessageType(null);
+    });
+
+    it("handleMessageType executes registered callback.", function () {
+        var container = function () { }
+        var actual_message = null;
+        var actual_target = null;
+
+        var testcall = function(msg, target){
+            actual_message = msg;
+            actual_target = target;
+        }
+        var testmessage = {
+                "messagetype": "unittest",
+                "data": "invalid message data"
+            }
+
+        var mm = new MessageManagerII(container);
+        mm.registerMessage('unittest', testcall, "xxo");
+        //mm.registry['unittest'] = { "callback": testcall, "targetElement": "xxo" }
+        mm.handleMessageType(testmessage);
+        expect(actual_message).toBe(testmessage);
+        expect(actual_target).toBe("xxo");
+
+    });
+
+    it("OnSocketMessage can handle null messages", function () {
+       var container = function () { };
+       var mm = new MessageManagerII(container);
+       var testEvent = null;
+       mm.onSocketMessage(testEvent);
+    });
+
+    it("OnSocketMessage can handle empty data", function(){
+        var consoleMock = function () {
+            this.errorCalled = false;
+            this.error = function (err) {
+                this.errorCalled = true;
+            };
+        }
+        var container = function () { 
+            console: consoleMock
+        };
+        var mm = new MessageManagerII(container);
+        var testEvent = { "data": "invalid data." };
+        mm.onSocketMessage(testEvent);
+    });
+
+    // todo: write a test for OnSocketMessage with valid json data and calls the messagehandler
+    // or does not call the message handler if no messagetype
+
+
 });

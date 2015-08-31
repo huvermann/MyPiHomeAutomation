@@ -4,7 +4,6 @@
         self.itemId = id
         self.itemType = itemType
         self.description = description
-        self.value = None
         self.hasChangedCallback = None
         self.lastError = None
 
