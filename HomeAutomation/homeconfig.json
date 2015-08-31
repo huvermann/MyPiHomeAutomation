@@ -5,7 +5,7 @@
       "ID": "Wohnzimmer",
       "Items": [
         {
-          "id": "4711",
+          "id": "0001",
           "customName": "Stehlampe",
           "type": "switch",
           "name": "Funksteckdose",
@@ -25,9 +25,20 @@
           "customName": "Heizung",
           "type": "slider",
           "name": "Heizung",
-          "min": 10,
-          "max": 36,
-          "value": 20,
+          "min": 0,
+          "max": 20,
+          "value": 5,
+          "host": "raspberrypi"
+        },
+        {
+          "id": "7E463F10-8D83-4226-82A5-DFCF927FD1ED",
+          "customName": "CPU-Auslastung",
+          "type": "gauge",
+          "name": "CPU-Auslastung",
+          "min": 0,
+          "max": 20,
+          "value": 5,
+          "unit": "%",
           "host": "raspberrypi"
         }
       ]
