@@ -28,6 +28,12 @@
     <Compile Include="ItemTypes.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SampleSliderItem.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SampleSwitchItem.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ThingsConnectorBase.py" />
     <Compile Include="ThingsConnectorRunner.py">
       <SubType>Code</SubType>

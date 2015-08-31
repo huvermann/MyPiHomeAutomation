@@ -1,10 +1,11 @@
-import websocket
+﻿import websocket
 import time
 import json
 
 
 def on_message(ws, message):
     print message
+    ws.connector.parseMessage(ws, message)
 
 def on_error(ws, error):
     print error
@@ -76,19 +77,33 @@ class ThingsConectorBase(object):
             self.lastError = e
             self.sendSocketErrorMessage(self.createJSONErrorMessage(item, e))
 
+    def registerForMessages(self):
+        msg = {"messagetype" : "subscribe",
+               "data" : "UI-Message"}
+        js=json.dumps(msg)
+        self.ws.send(js)
+
+
     def on_open(self, ws):
         """When connected, the clients sends sensor updates"""
+        self.registerForMessages()
+
         while(True):
             for item in self._items:
                 self.sendUpdateInfo(item)
         print "Loop ended"
         time.sleep(self.pollingTime)
 
+    def parseMessage(self, ws, message):
+        """Implement the message parser"""
+        pass
+
+
 
     def RunConnector(self):
         print "RunConnectorCalled"
         websocket.enableTrace(True)
-        self.ws = websocket.WebSocketApp("ws://localhost:8000/", on_message = on_message, on_error = on_error, on_close = on_close)
+        self.ws = websocket.WebSocketApp(self.url, on_message = on_message, on_error = on_error, on_close = on_close)
         self.ws.connector = self
         self.ws.on_open = on_open
         self.ws.run_forever()
