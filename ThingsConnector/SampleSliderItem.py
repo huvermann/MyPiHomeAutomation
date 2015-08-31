@@ -11,7 +11,6 @@ class SampleSliderItem(ThingsItemBase):
 
     def getItemValue(self):
         """Returns the value of the item..."""
-        self.value +=1
         return self.value
 
 
