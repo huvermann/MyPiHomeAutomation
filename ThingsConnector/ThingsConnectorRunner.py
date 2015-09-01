@@ -1,4 +1,6 @@
-﻿from ThingsConnectorBase import *
+﻿import logging
+from utilsTings import is_windows
+from ThingsConnectorBase import *
 import ItemTypes
 from CpuUsageItem import *
 from SampleSwitchItem import *
@@ -12,6 +14,7 @@ class ThingsConnectorRunner(ThingsConectorBase):
         self.RunConnector();
 
     def initSamples(self):
+        logging.info("initSamples called")
         """ Items definieren, später über config datei"""
         cpuUsageItem = CpuUsageItem("7E463F10-8D83-4226-82A5-DFCF927FD1ED", ItemTypes.Temperature, "CPU Auslastung PC1");
         switch1 = SampleSwitchItem("0001", 1, "Stehlampe")
@@ -27,15 +30,28 @@ class ThingsConnectorRunner(ThingsConectorBase):
 
     def initRaspberryHardware(self):
         """Füge Sensoren und Aktoren-Items hier ein"""
+        logging.info("initRaspberryHardware called")
         pass
 
 
 
 if __name__ == "__main__":
-    #runner = ThingsConnectorRunner("ws://dev.huvermann.com:8000", "Solaranlage", 5000)
-    runner = ThingsConnectorRunner("ws://localhost:8000", "Solaranlage", 10)
-    runner.initSamples()
+    logging.basicConfig(filename='ThingsConnectorRunner.log', level=logging.INFO)
+    logging.info("Started")
+    
+
+    url = "ws://dev.huvermann.com:8000"
+    #url = "ws://localhost:8000"
+    runner = ThingsConnectorRunner(url, "Solaranlage", 10)
+    
+    if (is_windows()):
+        runner.initSamples()
+    else:
+        runner.initRaspberryHardware()
+
     runner.run()
+    logging.info("Finished")
+
 
 
 

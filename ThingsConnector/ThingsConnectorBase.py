@@ -13,9 +13,14 @@ def on_error(ws, error):
 
 def on_close(ws):
     print "### closed ###"
+    ws.connector.cleanup()
 
 def on_open(ws):
-    print "On open handler called"
+    """
+    The on_open method called by the webservice client.
+    This is used, because the on_open method on the ThingsConnector base class
+    could not been used directly.
+    """
     ws.connector.on_open(ws)
 
 
@@ -31,6 +36,14 @@ class ThingsConectorBase(object):
         self._items = []
         self.ws = None
         self.hardwareLoopThread = None
+
+    def cleanup(self):
+        """Does a cleanup."""
+        if ws.connector.hardwareLoopThread:
+            ws.connector.hardwareLoopThread._stop()
+
+
+
 
     def addItem(self, thing):
         """Add a item"""
@@ -57,10 +70,12 @@ class ThingsConectorBase(object):
         return msg
 
     def sendSocketMessage(self, messageObject):
+        """Sends a message to the websocket."""
         msg = json.dumps(messageObject)
         self.ws.send(msg)
         
     def sendSocketErrorMessage(self, messageObject):
+        """Sends a error message on the websocket."""
         msg = json.dumps(messageObject)
         self.ws.send(msg)
          
@@ -80,13 +95,14 @@ class ThingsConectorBase(object):
             self.sendSocketErrorMessage(self.createJSONErrorMessage(item, e))
 
     def registerForMessages(self):
+        """Subscribes for message type UI-Message"""
         msg = {"messagetype" : "subscribe",
                "data" : "UI-Message"}
         js=json.dumps(msg)
         self.ws.send(js)
 
     def hardwareLoop(self, ws):
-        print "Hardware loop started..."
+        """Runs the hardware loop forever."""
         while(True):
             time.sleep(self.pollingTime)
             for item in self._items:
@@ -140,14 +156,9 @@ class ThingsConectorBase(object):
                 msg = json.dumps(newMessage)
                 ws.send(msg)
 
-
-
-                    
-
-
-
+                   
     def RunConnector(self):
-        print "RunConnectorCalled"
+        """Starts the run loop."""
         websocket.enableTrace(True)
         self.ws = websocket.WebSocketApp(self.url, on_message = on_message, on_error = on_error, on_close = on_close)
         self.ws.connector = self
