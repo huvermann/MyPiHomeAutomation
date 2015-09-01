@@ -23,13 +23,14 @@ def on_open(ws):
 class ThingsConectorBase(object):
     
     """Things connector base class"""
-    def __init__(self, url, description, pollingTimeMs = 1000):
+    def __init__(self, url, description, pollingTimeMs = 5):
         """Constructor"""
         self.url = url
         self.description = description
         self.pollingTime = pollingTimeMs
         self._items = []
         self.ws = None
+        self.hardwareLoopThread = None
 
     def addItem(self, thing):
         """Add a item"""
@@ -93,12 +94,9 @@ class ThingsConectorBase(object):
             print "Next loop"
 
     def on_open(self, ws):
-        """When connected, the clients sends sensor updates"""
+        """When connected, start a new thread to send sensor and actor updates"""
         self.registerForMessages()
-        start_new_thread(self.hardwareLoop, (ws,))
-
-            
-        
+        self.hardwareLoopThread = start_new_thread(self.hardwareLoop, (ws,))
 
     def parseMessage(self, ws, message):
         """Implement the message parser"""
