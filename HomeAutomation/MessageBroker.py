@@ -16,8 +16,9 @@ class MessageBroker(WebSocket):
 
     def __init__(self, server, sock, address):
         self.subscriptions = []
-        self.grandAccess = False
-        self.wronLogonAttempts = 0
+        self.session = []
+        self.session["grandAccess"] = False
+        self.session["wronLogonAttempts"] = 0
 
         return super(MessageBroker, self).__init__(server, sock, address)
     def handleMessage(self):
@@ -127,13 +128,14 @@ class MessageBroker(WebSocket):
 
     def logon(self, message):
         credentials = message["data"]
-        if (self.checkUserAccess(credentials) and self.wronLogonAttempts < 4):
-            self.grandAccess = True
+        if (self.checkUserAccess(credentials) and self.session["wronLogonAttempts"] < 4):
+            self.session["grandAccess"] = True
+            self.session["username"] = credentials["username"]
             
             self.sendGrandAccess(True)
         else:
-            self.grandAccess = False
-            self.wronLogonAttempts += 1
+            self.session["grandAccess"] = False
+            self.session["wronLogonAttempts"] += 1
             self.sendGrandAccess(False)
         
 
@@ -143,9 +145,7 @@ class MessageBroker(WebSocket):
         except Exception, e: print e
 
     def checkUserAccess(self, credentials):
-        # just for having someting
-        result = False;
-        
+        # just for having someting        
         if (credentials["username"]=='admin' or (credentials["username"]=="gerold" and credentials["password"]=="test")):
             return True
         else: return False
