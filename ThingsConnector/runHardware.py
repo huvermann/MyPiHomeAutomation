@@ -10,7 +10,7 @@ from utilsTings import is_windows
 if (not is_windows()):
     import ptvsd
     ptvsd.enable_attach("iot")
-    print "Waiting for attach..."
+    
     
 
 

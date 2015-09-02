@@ -112,9 +112,17 @@ class ThingsConectorBase(object):
 
     def hardwareLoop(self, ws):
         """Runs the hardware loop forever."""
+        if (not is_windows()):
+            import ptvsd
         # wait until node is authenticated
         while(not self.authenticated):
             time.sleep(1)
+
+        if (not is_windows()):
+            import ptvsd
+            print "Waiting for attach..."
+            ptvsd.wait_for_attach()
+
 
         while(True):
             time.sleep(self.pollingTime)
