@@ -5,11 +5,11 @@ This script runs the HomeAutomation application using a development server.
 from os import environ
 from HomeAutomation import app
 from MessageBroker import startMessageBroker
-from thingUtils import is_windows
+#from thingUtils import is_windows
 
-if (not is_windows()):
-    import ptvsd
-    ptvsd.enable_attach("iot")
+#if (not is_windows()):
+#    import ptvsd
+    #ptvsd.enable_attach("iot")
     #print "Waiting for attach..."
     #ptvsd.wait_for_attach()
 

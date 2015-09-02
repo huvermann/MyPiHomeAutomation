@@ -37,6 +37,9 @@
     <Compile Include="HomeAutomation\Tests\Python\tests.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="HomeAutomation\thingsUtils.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ledtest.py">
       <SubType>Code</SubType>
     </Compile>
@@ -50,6 +53,9 @@
     <Compile Include="SimpleWebSocketServer\SimpleHTTPSServer.py" />
     <Compile Include="SimpleWebSocketServer\SimpleWebSocketServer.py" />
     <Compile Include="SimpleWebSocketServer\__init__.py" />
+    <Compile Include="thingUtils.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HomeAutomation\" />
@@ -311,8 +317,8 @@
     <Content Include="HomeAutomation\static\scripts\tests\ui.teests.js" />
     <Content Include="HomeAutomation\templates\debugger.html" />
     <Content Include="HomeAutomation\templates\jsmobile.html" />
-    <Content Include="HomeAutomation\templates\jsmobileMultiPage.html" />
     <Content Include="HomeAutomation\templates\mainmenue.html" />
+    <Content Include="HomeAutomation\templates\maintemplate.html" />
     <Content Include="HomeAutomation\templates\nomobile.html" />
     <Content Include="HomeAutomation\templates\scripts_template.html" />
     <Content Include="homeconfig.json" />
