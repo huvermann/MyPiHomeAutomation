@@ -11,18 +11,9 @@ from HomeAutomation import app, provider
 def home():
     """Renders the home page."""
     return render_template(
-        #'switches.html',
-        #'debugger.html',
-        'mainmenue.html',
-        title='Home Page',
-        year=datetime.now().year,
+        'mainmenue.html'
     )
 
-@app.route('/switches')
-def switches():
-    return render_template(
-        'switches.html'
-    )
 
 @app.route('/gpio', methods=["GET", "POST"])
 def jsongpio():
