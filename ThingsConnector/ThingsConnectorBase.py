@@ -43,9 +43,6 @@ class ThingsConectorBase(object):
         if ws.connector.hardwareLoopThread:
             ws.connector.hardwareLoopThread._stop()
 
-
-
-
     def addItem(self, thing):
         """Add a item"""
         self._items.append(thing)
