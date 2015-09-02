@@ -16,6 +16,8 @@ class MessageBroker(WebSocket):
 
     def __init__(self, server, sock, address):
         self.subscriptions = []
+        self.grandAccess = False
+        self.wronLogonAttempts = 0
 
         return super(MessageBroker, self).__init__(server, sock, address)
     def handleMessage(self):
@@ -72,10 +74,13 @@ class MessageBroker(WebSocket):
         return unicode(json.dumps(result, ensure_ascii=True))
 
     def getPages(self, data):
-        print "sending get page response"
-        pages = self.readPagesConfig()
-        msg = self.envelopeMessage("PageList", pages)
-        self.sendMessage(msg)
+        if (self.grandAccess):
+            print "sending get page response"
+            pages = self.readPagesConfig()
+            msg = self.envelopeMessage("PageList", pages)
+            self.sendMessage(msg)
+        else:
+            self.sendRequireLogon()
         pass
 
     def parseJsonMessage(self, message):
@@ -88,16 +93,19 @@ class MessageBroker(WebSocket):
                     self.unsubscribe(message)
                 elif messagetype == u'getPages':
                     self.getPages(message)
+                elif messagetype == u'logon':
+                    self.logon(message)
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
 
     def sentToAll(self, message):
-        for client in clients:
-            if client != self:
-                if client.hasSubscribed(message["messagetype"]):
-                    #client.sendMessageObjectAsJson(message)
-                    client.sendMessage(self.data)
+        if self.grandAccess:
+            for client in clients:
+                if client != self:
+                    if client.hasSubscribed(message["messagetype"]):
+                        #client.sendMessageObjectAsJson(message)
+                        client.sendMessage(self.data)
 
     def hasSubscribed(self, messagetype):
         # Implement check
@@ -116,12 +124,45 @@ class MessageBroker(WebSocket):
          if sub in self.subscriptions:
              self.subscriptions.remove(sub)
              print self.address, 'unsubscribed for: ', sub
+
+    def logon(self, message):
+        credentials = message["data"]
+        if (self.checkUserAccess(credentials) and self.wronLogonAttempts < 4):
+            self.grandAccess = True
+            
+            self.sendGrandAccess(True)
+        else:
+            self.grandAccess = False
+            self.wronLogonAttempts += 1
+            self.sendGrandAccess(False)
         
 
     def sendMessageObjectAsJson(self, message):
         try:
             client.sendMessage(json.dumps(message))
         except Exception, e: print e
+
+    def checkUserAccess(self, credentials):
+        # just for having someting
+        result = False;
+        
+        if (credentials["username"]=='admin' or (credentials["username"]=="gerold" and credentials["password"]=="test")):
+            return True
+        else: return False
+
+
+    def sendGrandAccess(self, success):
+        msg = {"success" : success}
+        js = self.envelopeMessage("LogonResult", msg)
+        self.sendMessage(js)
+
+    def sendRequireLogon(self):
+        msg = {}
+        js = self.envelopeMessage("LogonRequired", msg)
+        self.sendMessage(js)
+        
+
+
 
 
 server = SimpleWebSocketServer('', 8000, MessageBroker)

@@ -88,6 +88,8 @@ function MessageManagerII(injector) {
         // subscribe the message types
         if (this.messageManager) {
             this.messageManager.subscribeMessages();
+
+            // request pages erst nach logon
             this.messageManager.requestPages();
         }
     }

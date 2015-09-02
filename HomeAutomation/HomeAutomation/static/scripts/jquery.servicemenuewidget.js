@@ -16,16 +16,33 @@
         /** Constructor **/
         _create: function () {
             console.log("_create has been called");
-            loading('show');
+            //loading('show');
             this.servicelocator = new Injector(this.configure);
             inputElement = this.element;
             var opts = $.extend(this.options, inputElement.data("options"));
             $(document).trigger("servicemenuwidgetcreate");
             inputElement.empty().append(this._initContent());
+            
             // start MessageManager:
             var mm = this.servicelocator.MessageManager;
             this.registerMessages(mm);
             mm.open(this.options.url);
+
+            // Onclick Event auf logon-Button
+            $("#LogonBtn").on("click", function () {
+                
+                var username = $("#un").val();
+                var password = $("#pw").val();
+                var credentials = {
+                    username: username,
+                    password: password
+                };
+                $('#popupLogin').popup("close");
+                $("#mainmenue").servicemenuwidget("logon", credentials);
+
+                return false;
+
+            });
         },
 
         /** Custom method to handle updates. */
@@ -33,7 +50,7 @@
             var inputElement = this.element;
             var opts = $.extend(this.options, inputElement.data("options"));
             $(document).trigger("servicemenuwidgetupdate");
-            
+            console.log("ja, update wird aufgerufen");
             refreshJQueryComponents();
         },
 
@@ -42,15 +59,68 @@
             return this._update();
         },
 
+        logon: function(credentials){
+            loading("show"); // Loading indicator
+            var message = {
+                "messagetype": "logon",
+                "data": credentials
+            };
+            this.servicelocator.MessageManager.sendMessage(JSON.stringify(message));
+
+        },
+
         _initContent: function () {
-            var result = "url:" + this.options.url;
-            return result;
+            //html='        <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">'+
+            //'<form>'+
+            //    '<div style="padding:10px 20px;">'+
+            //       '<h3>Anmelden</h3>'+
+            //        '<label for="un" class="ui-hidden-accessible">Benutzername:</label>'+
+            //        '<input type="text" name="user" id="un" value="" placeholder="Benutzername" data-theme="a">'+
+            //        '<label for="pw" class="ui-hidden-accessible">Password:</label>'+
+            //        '<input type="password" name="pass" id="pw" value="" placeholder="Passwort" data-theme="a">'+
+            //        '<button type="submit" class="ui-btn ui-corner ui-shadow ui-bnt-b ui-btn-icon-left ui-icon-check">Anmelden</button>'+
+            //        '</div>'+
+            //    '</form>'+
+            //'</div>';
+            //return html;
+            return 'Not connected!';
         },
 
         registerMessages: function (messageManager) {
+            messageManager.registerMessage("LogonResult", this.onLogonResult, this.element);
+            messageManager.registerMessage("LogonRequired", this.onLogonRequired, this.element);
+
             messageManager.registerMessage("PageList", this.onPageList, this.element);
             messageManager.registerMessage("Hardware", this.onHardwareMessage, this.element);
             messageManager.registerMessage("Chat", this.onChatMessage, this.element);
+        },
+
+        onLogonResult: function(message, targetElement){
+            success = false;
+            loading("hide");
+            if (message.data) {
+                if (message.data.success == true) {
+                    success = true;
+                }
+            }
+            if (success) {
+                // require page
+                targetElement.servicemenuwidget("sendPageRequest");
+            } else {
+                $("#loginMessage").empty().append('Login gescheitert!');
+                // show logon popup again:
+                $("#popupLogin").popup("open");
+            }
+        },
+
+        sendPageRequest: function () {
+            this.servicelocator.MessageManager.requestPages();
+        },
+
+        onLogonRequired: function(message, targetElement){
+            refreshJQueryComponents(targetElement);
+            loading("hide");
+            $("#popupLogin").popup("open");
         },
 
         onPageList: function (message, targetElement) {

@@ -19,11 +19,12 @@
         actual._create();
         expect(actual.registerMessages).toHaveBeenCalled();
     }),
-    it("calls loading show on _create", function () {
-        spyOn(window, 'loading');
-        actual._create();
-        expect(window.loading).toHaveBeenCalledWith('show');
-    }),
+    // Loading show has been removed from on_create
+    //it("calls loading show on _create", function () {
+    //    spyOn(window, 'loading');
+    //    actual._create();
+    //    expect(window.loading).toHaveBeenCalledWith('show');
+    //}),
     it("calls _update when refresh is called.", function () {
         spyOn(actual, '_update');
         actual.refresh();
