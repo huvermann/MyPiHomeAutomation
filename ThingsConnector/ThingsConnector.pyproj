@@ -40,7 +40,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ThingsConnectorBase.py" />
-    <Compile Include="ThingsConnectorRunner.py">
+    <Compile Include="runHardware.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ThingsItemBase.py">

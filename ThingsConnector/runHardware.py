@@ -29,10 +29,11 @@ class ThingsConnectorRunner(ThingsConectorBase):
         self.addItem(slider1); 
 
     def initRaspberryHardware(self):
+        print "Raspberry hardware init..."
         """Füge Sensoren und Aktoren-Items hier ein"""
         switch1 = SampleSwitchItem("0001", 1, "Stehlampe")
-        #switch2 = SampleSwitchItem("EE825339-C673-4D4D-807A-40D80835FCC9", 1, "Deckenleuchte")
-        #slider1 = SampleSliderItem("8F1D15DB-4247-482B-9F53-CF0B1CF42F89", 1, "Heizung")
+        switch2 = SampleSwitchItem("EE825339-C673-4D4D-807A-40D80835FCC9", 1, "Deckenleuchte")
+        slider1 = SampleSliderItem("8F1D15DB-4247-482B-9F53-CF0B1CF42F89", 1, "Heizung")
         logging.info("initRaspberryHardware called")
         pass
 
