@@ -54,7 +54,7 @@ class MessageBroker(WebSocket):
         pass
 
     def readPagesConfig(self):
-        filepath = os.path.dirname(__file__) + '\homeconfig.json'
+        filepath = os.path.join(os.path.dirname(__file__), 'homeconfig.json')
         print "filepath: " + filepath
         result = ""
         try:
