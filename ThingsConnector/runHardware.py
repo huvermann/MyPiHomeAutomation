@@ -5,6 +5,13 @@ import ItemTypes
 from CpuUsageItem import *
 from SampleSwitchItem import *
 from SampleSliderItem import *
+from thingUtils import is_windows
+
+if (not is_windows()):
+    import ptvsd
+    ptvsd.enable_attach("iot")
+    print "Waiting for attach..."
+    
 
 
 class ThingsConnectorRunner(ThingsConectorBase):
@@ -29,6 +36,8 @@ class ThingsConnectorRunner(ThingsConectorBase):
         self.addItem(slider1); 
 
     def initRaspberryHardware(self):
+        if(not is_windows()):
+            ptvsd.wait_for_attach()
         print "Raspberry hardware init..."
         """Füge Sensoren und Aktoren-Items hier ein"""
         switch1 = SampleSwitchItem("0001", 1, "Stehlampe")
