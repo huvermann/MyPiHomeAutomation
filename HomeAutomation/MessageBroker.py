@@ -95,6 +95,8 @@ class MessageBroker(WebSocket):
                     self.getPages(message)
                 elif messagetype == u'logon':
                     self.logon(message)
+                elif messagetype == u'authHardware':
+                    self.logonHardware(message)
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
@@ -135,6 +137,16 @@ class MessageBroker(WebSocket):
             self.grandAccess = False
             self.wronLogonAttempts += 1
             self.sendGrandAccess(False)
+
+    def logonHardware(self, message):
+        print "---- LogonHardware...."
+        credentials = message["data"]
+        # Todo: implement security check
+        # 
+        # now we don´t check just grand access, this is a security hole!!!
+        self.grandAccess = True
+        self.sendGrandAccess(True)
+        pass
         
 
     def sendMessageObjectAsJson(self, message):

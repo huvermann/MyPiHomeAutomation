@@ -35,6 +35,7 @@ class ThingsConectorBase(object):
         self.pollingTime = pollingTimeMs
         self._items = []
         self.ws = None
+        self.authenticated = False
         self.hardwareLoopThread = None
 
     def cleanup(self):
@@ -101,8 +102,23 @@ class ThingsConectorBase(object):
         js=json.dumps(msg)
         self.ws.send(js)
 
+    def authHardware(self):
+        """Sends logon request for hardware"""
+        msg = {"messagetype" : "authHardware",
+               "data" : {"nodeid" : "12345",
+                         "key": "12345"
+                         }
+               }
+        js=json.dumps(msg)
+        self.ws.send(js)
+        pass
+
     def hardwareLoop(self, ws):
         """Runs the hardware loop forever."""
+        # wait until node is authenticated
+        while(not self.authenticated):
+            time.sleep(1)
+
         while(True):
             time.sleep(self.pollingTime)
             for item in self._items:
@@ -111,6 +127,7 @@ class ThingsConectorBase(object):
 
     def on_open(self, ws):
         """When connected, start a new thread to send sensor and actor updates"""
+        self.authHardware()
         self.registerForMessages()
         self.hardwareLoopThread = start_new_thread(self.hardwareLoop, (ws,))
 
@@ -131,8 +148,9 @@ class ThingsConectorBase(object):
             if messagetype:
                 if messagetype == u'UI-Message':
                     self.handleUIMessage(ws, message)
-                elif messagetype == "implementThis":
-                    # implement message type
+                elif messagetype == "LogonResult":
+                    # todo: implement: if the logon fails, then disconnect
+                    self.authenticated = True
                     pass
         pass
 
