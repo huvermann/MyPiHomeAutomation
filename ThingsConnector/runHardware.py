@@ -5,7 +5,7 @@ import ItemTypes
 from CpuUsageItem import *
 from SampleSwitchItem import *
 from SampleSliderItem import *
-from thingUtils import is_windows
+from utilsTings import is_windows
 
 if (not is_windows()):
     import ptvsd
