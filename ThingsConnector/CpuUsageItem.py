@@ -4,6 +4,7 @@ from locale import *
 from utilsTings import is_windows
 if (not is_windows()):
     import psutil
+    #import random
 
 
 class CpuUsageItem(ThingsItemBase):
@@ -24,7 +25,9 @@ class CpuUsageItem(ThingsItemBase):
 
     def readArmCpuUsage(self):
         try:
-            cpu = psutil.cpu_percent(interval=1)
+            #cpu = psutil.cpu_percent(interval=1)
+            #return random.random(1,100)
+            return psutil.cpu_percent(interval=1)
         except Exception, e:
             return 0
 
