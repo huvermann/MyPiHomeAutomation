@@ -24,5 +24,5 @@ class runMessageDebugger(ThingsConectorBase):
 
 if __name__ == "__main__":
     url = "ws://localhost:8000"
-    runner = runMessageDebugger(url, "Solaranlage", 10)
+    runner = runMessageDebugger("4712debug", url, "Solaranlage", 10)
     runner.RunConnector()

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>02f2e616-c8b9-4a5f-b8fe-af81bf9da3bc</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>runMessageDebugger.py</StartupFile>
+    <StartupFile>runHardware.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

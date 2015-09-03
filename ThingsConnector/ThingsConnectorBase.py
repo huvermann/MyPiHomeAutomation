@@ -29,8 +29,9 @@ def on_open(ws):
 class ThingsConectorBase(object):
     
     """Things connector base class"""
-    def __init__(self, url, description, pollingTimeMs = 5):
+    def __init__(self, nodeId, url, description, pollingTimeMs = 5):
         """Constructor"""
+        self.nodeId = nodeId
         self.url = url
         self.description = description
         self.pollingTime = pollingTimeMs
