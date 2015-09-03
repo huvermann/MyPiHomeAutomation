@@ -21,6 +21,15 @@
           "host": "raspberrypi"
         },
         {
+          "id": "R16",
+          "customName": "LED an Port 16",
+          "type": "switch",
+          "name": "GPIO16",
+          "value": 1,
+          "host": "raspberrypi"
+        },
+
+        {
           "id": "8F1D15DB-4247-482B-9F53-CF0B1CF42F89",
           "customName": "Heizung",
           "type": "slider",

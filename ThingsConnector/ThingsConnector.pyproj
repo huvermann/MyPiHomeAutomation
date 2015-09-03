@@ -30,6 +30,9 @@
     <Compile Include="ItemTypes.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="raspiGpioItem.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runMessageDebugger.py">
       <SubType>Code</SubType>
     </Compile>

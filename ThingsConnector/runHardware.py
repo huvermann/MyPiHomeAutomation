@@ -5,13 +5,8 @@ import ItemTypes
 from CpuUsageItem import *
 from SampleSwitchItem import *
 from SampleSliderItem import *
+from raspiGpioItem import *
 from utilsTings import is_windows
-
-if (not is_windows()):
-    import ptvsd
-    ptvsd.enable_attach("iot")
-    
-    
 
 
 class ThingsConnectorRunner(ThingsConectorBase):
@@ -36,13 +31,17 @@ class ThingsConnectorRunner(ThingsConectorBase):
         self.addItem(slider1); 
 
     def initRaspberryHardware(self):
-        if(not is_windows()):
-            ptvsd.wait_for_attach()
         print "Raspberry hardware init..."
         """Füge Sensoren und Aktoren-Items hier ein"""
+        port16 = RaspiGpioItem("R16", 16, 0, "Led an Port 16")
         switch1 = SampleSwitchItem("0001", 1, "Stehlampe")
         switch2 = SampleSwitchItem("EE825339-C673-4D4D-807A-40D80835FCC9", 1, "Deckenleuchte")
         slider1 = SampleSliderItem("8F1D15DB-4247-482B-9F53-CF0B1CF42F89", 1, "Heizung")
+        
+        self.addItem(port16)
+        self.addItem(switch1) 
+        self.addItem(switch2) 
+        self.addItem(slider1) 
         logging.info("initRaspberryHardware called")
         pass
 

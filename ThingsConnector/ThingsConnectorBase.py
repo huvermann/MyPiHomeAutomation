@@ -2,6 +2,7 @@
 import time
 import json
 from thread import start_new_thread
+from utilsTings import is_windows
 
 
 def on_message(ws, message):
@@ -118,15 +119,11 @@ class ThingsConectorBase(object):
         while(not self.authenticated):
             time.sleep(1)
 
-        if (not is_windows()):
-            import ptvsd
-            print "Waiting for attach..."
-            ptvsd.wait_for_attach()
-
-
         while(True):
             time.sleep(self.pollingTime)
             for item in self._items:
+                print "process item..."
+                print item
                 self.sendUpdateInfo(item)
             print "Next loop"
 
