@@ -42,9 +42,6 @@
     <Compile Include="HomeAutomation\thingsUtils.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ledtest.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MessageBroker.py">
       <SubType>Code</SubType>
     </Compile>

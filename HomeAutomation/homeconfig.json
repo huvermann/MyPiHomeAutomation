@@ -39,6 +39,18 @@
         },
 
         {
+          "id": "CPU001",
+          "customName": "CPU Auslastung Raspberry",
+          "type": "gauge",
+          "name": "CPU-Auslastung raspi",
+          "min": 0,
+          "max": 20,
+          "value": 5,
+          "unit": "%",
+          "host": "raspberrypi"
+        },
+
+        {
           "id": "8F1D15DB-4247-482B-9F53-CF0B1CF42F89",
           "customName": "Heizung",
           "type": "slider",

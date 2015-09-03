@@ -33,6 +33,7 @@ class ThingsConnectorRunner(ThingsConectorBase):
         """Füge Sensoren und Aktoren-Items hier ein"""   
         self.addItem(RaspiGpioItem("R16", 16, 0, "Led an Port 16"))
         self.addItem(RaspiGpioItem("R18", 18, 0, "Led an Port 18"))
+        self.addItem(CpuUsageItem("CPU001", ItemTypes.Temperature, "Raspberry CPU-Auslastung"))
         self.addItem(SampleSwitchItem("0001", 1, "Stehlampe")) 
         self.addItem(SampleSwitchItem("EE825339-C673-4D4D-807A-40D80835FCC9", 1, "Deckenleuchte")) 
         self.addItem(SampleSliderItem("8F1D15DB-4247-482B-9F53-CF0B1CF42F89", 1, "Heizung")) 
