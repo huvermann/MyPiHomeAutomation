@@ -128,7 +128,18 @@
                 pagesToCollapsible(message.data.pages, targetElement);
             }
             refreshJQueryComponents(targetElement);
+            console.log("Versuche pull updates...");
+            targetElement.servicemenuwidget("pullUpdates");
             loading("hide");
+        },
+
+        // Pull updates from message bus / broker
+        pullUpdates: function () {
+            var message = {
+                "messagetype": "pullupdates",
+                "data": {}
+            };
+            this.servicelocator.MessageManager.sendMessage(JSON.stringify(message));
         },
 
         getElementType: function (element) {

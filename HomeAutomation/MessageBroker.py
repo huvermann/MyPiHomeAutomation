@@ -18,25 +18,23 @@ class MessageBroker(WebSocket):
         self.subscriptions = []
         self.grandAccess = False
         self.wronLogonAttempts = 0
+        self._clientType = None
 
         return super(MessageBroker, self).__init__(server, sock, address)
     def handleMessage(self):
        print "Handle Message: "
        print self.data
-        #for client in clients:
-          #if client != self:
-             #client.sendMessage(self.address[0] + ' - ' + self.data)
        self.parseMessage(self.data)
 
     def handleConnected(self):
        print self.address, 'connected'
-       #for client in clients:
-          #client.sendMessage(self.address[0] + u' - connected')
        clients.append(self)
 
     def handleClose(self):
        clients.remove(self)
        print self.address, 'closed'
+       # Can be used later to inform the UI if a hardware node is down
+       # or if a chat user is leaving.
        for client in clients:
           client.sendMessage(self.address[0] + u' - disconnected')
 
@@ -75,7 +73,6 @@ class MessageBroker(WebSocket):
 
     def getPages(self, data):
         if (self.grandAccess):
-            print "sending get page response"
             pages = self.readPagesConfig()
             msg = self.envelopeMessage("PageList", pages)
             self.sendMessage(msg)
@@ -92,7 +89,9 @@ class MessageBroker(WebSocket):
                 elif messagetype == u'unsubscribe':
                     self.unsubscribe(message)
                 elif messagetype == u'getPages':
-                    self.getPages(message)
+                    self.getPages(message)                        
+                elif messagetype == u'pullupdates':
+                     self.sendRefreshBroadcast()
                 elif messagetype == u'logon':
                     self.logon(message)
                 elif messagetype == u'authHardware':
@@ -100,6 +99,18 @@ class MessageBroker(WebSocket):
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
+
+    def sendRefreshBroadcast(self):
+        if self.grandAccess:
+            for client in clients:
+                if client != self:
+                    client.sendMessage(self.refreshMessageString())
+
+        pass
+    def refreshMessageString(self):
+        """Create a refresh message json string."""
+        msg = {}
+        return self.envelopeMessage("Refresh", msg)
 
     def sentToAll(self, message):
         if self.grandAccess:
@@ -131,7 +142,7 @@ class MessageBroker(WebSocket):
         credentials = message["data"]
         if (self.checkUserAccess(credentials) and self.wronLogonAttempts < 4):
             self.grandAccess = True
-            
+            self._clientType = "browser"
             self.sendGrandAccess(True)
         else:
             self.grandAccess = False
@@ -139,22 +150,23 @@ class MessageBroker(WebSocket):
             self.sendGrandAccess(False)
 
     def logonHardware(self, message):
-        print "---- LogonHardware...."
         credentials = message["data"]
         # Todo: implement security check
         # 
         # now we don´t check just grand access, this is a security hole!!!
         self.grandAccess = True
+        self._clientType = "hardware"
         self.sendGrandAccess(True)
         pass
         
 
-    def sendMessageObjectAsJson(self, message):
-        try:
-            client.sendMessage(json.dumps(message))
-        except Exception, e: print e
+    #def sendMessageObjectAsJson(self, message):
+    #    try:
+    #        client.sendMessage(json.dumps(message))
+    #    except Exception, e: print e
 
     def checkUserAccess(self, credentials):
+        """Check user credentials"""
         # just for having someting
         result = False;
         
@@ -164,18 +176,17 @@ class MessageBroker(WebSocket):
 
 
     def sendGrandAccess(self, success):
+        """Send the logon result"""
         msg = {"success" : success}
         js = self.envelopeMessage("LogonResult", msg)
         self.sendMessage(js)
 
     def sendRequireLogon(self):
+        """Force the user or node to logon"""
         msg = {}
         js = self.envelopeMessage("LogonRequired", msg)
         self.sendMessage(js)
         
-
-
-
 
 server = SimpleWebSocketServer('', 8000, MessageBroker)
 
@@ -183,5 +194,4 @@ def startWebSocketServer():
     server.serveforever()
 
 def startMessageBroker():
-    #server = SimpleWebSocketServer('', 8000, MessageBroker)
     start_new_thread(startWebSocketServer, ())

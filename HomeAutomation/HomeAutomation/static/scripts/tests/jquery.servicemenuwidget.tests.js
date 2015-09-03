@@ -30,29 +30,29 @@
         actual.refresh();
         expect(actual._update).toHaveBeenCalled();
     }),
-    it("onPageList calls loading().", function () {
-        spyOn(window, 'loading');
-        actual.onPageList('', $('#actual'));
-        expect(window.loading).toHaveBeenCalled();
-    }),
-    it("onPageList calls refreshJQueryComponents().", function () {
-        spyOn(window, 'refreshJQueryComponents');
-        actual.onPageList('', $('#actual'));
-        expect(window.refreshJQueryComponents).toHaveBeenCalled();
-    }),
-    it("onPageList calls loading with hide.", function () {
-        var callParam = null;
+    //it("onPageList calls loading().", function () {
+    //    spyOn(window, 'loading');
+    //    actual.onPageList('', $('#actual'));
+    //    expect(window.loading).toHaveBeenCalled();
+    //}),
+    //it("onPageList calls refreshJQueryComponents().", function () {
+    //    spyOn(window, 'refreshJQueryComponents');
+    //    actual.onPageList('', $('#actual'));
+    //    expect(window.refreshJQueryComponents).toHaveBeenCalled();
+    //}),
+    //it("onPageList calls loading with hide.", function () {
+    //    var callParam = null;
 
-        spyOn(window, 'loading');
-        actual.onPageList('', $('#actual'));
-        expect(window.loading).toHaveBeenCalledWith('hide');
-    }),
-    it("onPageList calls pagesToCollapsible if message contains pages.", function () {
-        spyOn(window, 'pagesToCollapsible');
-        message = { data: { pages: "test" } };
-        actual.onPageList(message, $('#actual'));
-        expect(window.pagesToCollapsible).toHaveBeenCalled();
-    }),
+    //    spyOn(window, 'loading');
+    //    actual.onPageList('', $('#actual'));
+    //    expect(window.loading).toHaveBeenCalledWith('hide');
+    //}),
+    //it("onPageList calls pagesToCollapsible if message contains pages.", function () {
+    //    spyOn(window, 'pagesToCollapsible');
+    //    message = { data: { pages: "test" } };
+    //    actual.onPageList(message, $('#actual'));
+    //    expect(window.pagesToCollapsible).toHaveBeenCalled();
+    //}),
     it("Servicelocator contains MessageManager", function () {
         expect(actual.servicelocator).toBeDefined();
         expect(actual.servicelocator.MessageManager).toBeDefined();

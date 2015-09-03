@@ -1,5 +1,6 @@
 ﻿import websocket
 import time
+import datetime
 import json
 from thread import start_new_thread
 from utilsTings import is_windows
@@ -123,7 +124,8 @@ class ThingsConectorBase(object):
         while(True):
             time.sleep(self.pollingTime)
             for item in self._items:
-                print "process item..."
+                now = datetime.datetime.now()
+                print now.strftime("process item... %Y-%m-%d %H:%M")
                 print item
                 self.sendUpdateInfo(item)
             print "Next loop"
@@ -147,13 +149,18 @@ class ThingsConectorBase(object):
 
     def parseJsonMessage(self, ws, message):
         if message:
+            now = datetime.datetime.now()
+            print now.strftime("Parse message... %Y-%m-%d %H:%M")
             messagetype = message['messagetype']
+            print "MessageType: " + messagetype
             if messagetype:
                 if messagetype == u'UI-Message':
                     self.handleUIMessage(ws, message)
                 elif messagetype == "LogonResult":
                     # todo: implement: if the logon fails, then disconnect
                     self.authenticated = True
+                elif messagetype == "Refresh":
+                    self.prepareRefresh()
                     pass
         pass
 
@@ -167,7 +174,11 @@ class ThingsConectorBase(object):
             value = float(data['value'])
             self.changeHardware(ws, hwid, value)
             # send the message
-            
+    
+    def prepareRefresh(self):
+        print "===== Prepare update ====="
+        for item in self._items:
+            item.refresh()        
 
     def changeHardware(self, ws, hwid, value):
         for item in self._items:

@@ -25,7 +25,16 @@
           "customName": "LED an Port 16",
           "type": "switch",
           "name": "GPIO16",
-          "value": 1,
+          "value": 0,
+          "host": "raspberrypi"
+        },
+
+        {
+          "id": "R18",
+          "customName": "LED an Port 18",
+          "type": "switch",
+          "name": "GPIO18",
+          "value": 0,
           "host": "raspberrypi"
         },
 

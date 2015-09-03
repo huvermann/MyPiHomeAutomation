@@ -6,6 +6,7 @@
         self.description = description
         self.hasChangedCallback = None
         self.lastError = None
+        self.lastValue = None
 
     
     def getItemValue(self):
@@ -18,9 +19,21 @@
     def getLastError(self):
         return self.lastError;
 
+    def refresh(self):
+        """
+        Is called when consumer requires an update.
+        it sets the lastValue to None.
+        """
+        print "==== ThingsItemBase,Refresh!!"
+        self.lastValue = None
+        return self
+
     def checkItemHasChanged(self):
         """Returns a tuple: (bool: ItemHasChanged, var Value).""" 
-        return (True, self.getItemValue())
+        val = self.getItemValue()
+        changed = (val != self.lastValue)
+        self.lastValue = val
+        return (changed, val)
 
 
     def setItemValue(self, value):
