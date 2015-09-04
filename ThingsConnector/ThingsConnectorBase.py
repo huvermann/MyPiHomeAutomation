@@ -2,6 +2,7 @@
 import time
 import datetime
 import json
+import sys
 from thread import start_new_thread
 from utilsTings import is_windows
 
@@ -104,9 +105,10 @@ class ThingsConectorBase(object):
 
     def authHardware(self):
         """Sends logon request for hardware"""
+        #todo: implement hardware authentication
         msg = {"messagetype" : "authHardware",
-               "data" : {"nodeid" : "12345",
-                         "key": "12345"
+               "data" : {"nodeid" : self.nodeId,
+                         "key": "secretkey"
                          }
                }
         js=json.dumps(msg)
@@ -158,11 +160,34 @@ class ThingsConectorBase(object):
                     self.handleUIMessage(ws, message)
                 elif messagetype == "LogonResult":
                     # todo: implement: if the logon fails, then disconnect
-                    self.authenticated = True
+                    self.handleLogonResult(ws, message)
                 elif messagetype == "Refresh":
                     self.prepareRefresh()
                     pass
         pass
+
+    def handleLogonResult(self, ws, message):
+        data = message["data"]
+        if data:
+            if data["success"] == True:
+                self.authenticated = True
+                self.sendHardwareInfo()
+            else:
+                self.cutConnection()
+        else:
+            self.cutConnection()
+
+    def sendHardwareInfo(self):
+        pass
+
+
+    def cutConnection(self):
+        """Terminate connection and exit"""
+        if self.hardwareLoopThread:
+            self.hardwareLoopThread.exit()
+        self.ws.close()
+        sys.exit()
+
 
     def handleUIMessage(self, ws, message):
         if (message['data']):
