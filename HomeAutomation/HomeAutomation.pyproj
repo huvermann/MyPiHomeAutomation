@@ -36,9 +36,6 @@
     <Compile Include="HomeAutomation\IOProvider.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HomeAutomation\Tests\Python\tests.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="HomeAutomation\thingsUtils.py">
       <SubType>Code</SubType>
     </Compile>
@@ -70,7 +67,6 @@
     <Folder Include="HomeAutomation\static\img\" />
     <Folder Include="HomeAutomation\static\scripts\" />
     <Folder Include="HomeAutomation\templates\" />
-    <Folder Include="HomeAutomation\Tests\Python\" />
     <Folder Include="SimpleWebSocketServer\" />
   </ItemGroup>
   <ItemGroup>

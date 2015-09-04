@@ -171,13 +171,27 @@ class ThingsConectorBase(object):
         if data:
             if data["success"] == True:
                 self.authenticated = True
-                self.sendHardwareInfo()
+                self.sendNodeInfo()
             else:
                 self.cutConnection()
         else:
             self.cutConnection()
 
-    def sendHardwareInfo(self):
+    def sendNodeInfo(self):
+        # gather item infos
+        hardwareinfo = []
+        for item in self._items:
+            hardwareinfo.append(item.getItemInfo())
+        nodeinfo = {"nodeid" : self.nodeId,
+                    "description" : self.description,
+                    "hardwareinfo" : hardwareinfo
+                    }
+        # send the message to the messagebroker.
+        msg = {"messagetype" : "nodeinfo",
+               "data" : nodeinfo}
+        js=json.dumps(msg)
+        self.ws.send(js)
+        
         pass
 
 

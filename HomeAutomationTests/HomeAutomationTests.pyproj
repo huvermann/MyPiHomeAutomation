@@ -3,15 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>0db9f3ec-90ec-45be-a787-db8220c89825</ProjectGuid>
+    <ProjectGuid>e3aa45c0-77b5-4fe8-a211-7e4744b7f3f0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ThingsConnectorBaseTests.py</StartupFile>
+    <StartupFile>HomeAutomationTests.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>ThingsConnectorTests</Name>
-    <RootNamespace>ThingsConnectorTests</RootNamespace>
+    <Name>HomeAutomationTests</Name>
+    <RootNamespace>HomeAutomationTests</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,15 +22,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ThingsConnectorBaseTests.py" />
-    <Compile Include="ThingsItemBaseTests.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="HomeAutomationTests.py" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ThingsConnector\ThingsConnector.pyproj">
-      <Name>ThingsConnector</Name>
-      <Project>{02f2e616-c8b9-4a5f-b8fe-af81bf9da3bc}</Project>
+    <ProjectReference Include="..\HomeAutomation\HomeAutomation.pyproj">
+      <Name>HomeAutomation</Name>
+      <Project>{77f8916c-1141-413c-913a-714a54ed22ff}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

@@ -5,7 +5,7 @@
 <div data-role="page" id="mainpage" data-theme="b" data-content-theme="b">
     <div data-role="header">
         <h1>Home Automation System</h1>
-        <a href="#settings" data-icon="gear" class="ui-btn-right">Einstellungen</a>
+        <a href="#settings" data-icon="gear" class="ui-btn-right" data-transition="flip">Einstellungen</a>
     </div>
     <div id="CollapsibleContent">
         <div id="mainmenue" data-role="servicemenuwidget" data-model="collapsible"></div>
@@ -37,11 +37,16 @@
         </div>
         <div data-role="page" id="settings" data-theme="b" data-content-theme="b">
             <div data-role="header">
-                <a href="#mainpage" data-icon="home" class="ui-btn-left"></a>
+                <a href="#mainpage" data-icon="home" class="ui-btn-left" data-rel="back">Zurück</a>
                 <h1>Home Automation System</h1>
             </div>
             <div id="settingscontent">
-                <p>Einstellungen...(noch implementieren)</p>
+                <ul data-role="listview" data-ajax="false" data-inset="true" data-theme="b">
+                    <li data-role="list-divider">Teiler</li>
+                    <li><a href="#mapping" data-transition="slidefade">Raum-Gerätezuordnung</a></li>
+                    <li><a href="#usermanagement" data-transition="slidefade">Benutzerverwaltung</a></li>
+                    <li><a href="#usermanagement" data-transition="slidefade">Regeln verwalten</a></li>
+                </ul>
             </div>
 
             <div data-role="footer" data-position="fixed">
@@ -51,6 +56,50 @@
             </div>
 
         </div>
+
+<div data-role="page" id="mapping" data-theme="b" data-content-theme="b">
+    <div data-role="header">
+        <a href="#settings" data-rel="back" data-icon="back" class="ui-btn-left">Zurück</a>
+        <h1>Geräte-Raum-Zuordnung</h1>
+    </div>
+    <div id="mappingcontent">
+        <!--<div class="ui-field-contain">-->
+            <label for="select-custom-19">Wohnzimmer</label>
+                <select name="select-custom-19" id="select-custom-19" multiple="multiple" data-native-menu="false">
+                    <option>Vorhandene Items</option>
+                    <option value="1" selected="selected">Deckenleuchte</option>
+                    <option value="2" selected="selected">Lampe2</option>
+                    <option value="3">Lampe3</option>
+                    <option value="4">Lampe4</option>
+
+                </select>
+            <!-------------------->
+
+            <label for="select-custom-20">Schlafzimmer</label>
+            <select name="select-custom-20" id="select-custom-20" multiple="multiple" data-native-menu="false">
+                <option>Vorhandene Items</option>
+                <option value="1" selected="selected">20Deckenleuchte</option>
+                <option value="2" selected="selected">20Lampe2</option>
+                <option value="3">10Lampe3</option>
+                <option value="4">20Lampe4</option>
+
+            </select>
+            <!-------------------->
+
+
+            <!--</div>-->
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="bottom">
+            <ul>
+                <li><a href="#" data-icon="plus" id="btn-new-room">Neuer Raum</a></li>
+                <li><a href="#" data-icon="check"id="btn-save-assignment">Speichern</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 
         {% endblock %}
 

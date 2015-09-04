@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ThingsConnector", "ThingsCo
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ThingsConnectorTests", "ThingsConnectorTests\ThingsConnectorTests.pyproj", "{0DB9F3EC-90EC-45BE-A787-DB8220C89825}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "HomeAutomationTests", "HomeAutomationTests\HomeAutomationTests.pyproj", "{E3AA45C0-77B5-4FE8-A211-7E4744B7F3F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,8 @@ Global
 		{02F2E616-C8B9-4A5F-B8FE-AF81BF9DA3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB9F3EC-90EC-45BE-A787-DB8220C89825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0DB9F3EC-90EC-45BE-A787-DB8220C89825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3AA45C0-77B5-4FE8-A211-7E4744B7F3F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3AA45C0-77B5-4FE8-A211-7E4744B7F3F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

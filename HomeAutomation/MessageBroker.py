@@ -19,6 +19,7 @@ class MessageBroker(WebSocket):
         self.grandAccess = False
         self.wronLogonAttempts = 0
         self._clientType = None
+        self._hardware = None
 
         return super(MessageBroker, self).__init__(server, sock, address)
     def handleMessage(self):
@@ -96,9 +97,17 @@ class MessageBroker(WebSocket):
                     self.logon(message)
                 elif messagetype == u'authHardware':
                     self.logonHardware(message)
+                elif messagetype == u'nodeinfo':
+                    self.nodeInfo(message)
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
+
+    def nodeInfo(self, message):
+        """Reads the node info from message."""
+        if message["data"]:
+            self._hardware = message["data"]
+        pass
 
     def sendRefreshBroadcast(self):
         if self.grandAccess:

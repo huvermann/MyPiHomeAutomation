@@ -45,6 +45,14 @@
     def getId(self):
         return self.itemId
 
+    def getItemInfo(self):
+        """Returns the item hardware info."""
+        result = {"id" : self.itemId,
+                  "type" : self.itemType,
+                  "description" : self.description
+                  }
+        return result
+
 
 
 
