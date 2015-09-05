@@ -323,7 +323,6 @@
     <Content Include="HomeAutomation\static\content\site.css" />
     <Content Include="HomeAutomation\static\scripts\_references.js" />
     <Content Include="HomeAutomation\templates\index.html" />
-    <Content Include="HomeAutomation\templates\layout.html" />
     <Content Include="SimpleWebSocketServer\SimpleWebSocketServer.pyc" />
     <Content Include="SimpleWebSocketServer\websocket.html" />
     <Content Include="SimpleWebSocketServer\__init__.pyc" />
