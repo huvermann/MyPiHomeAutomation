@@ -84,6 +84,17 @@ function MessageManagerII(injector) {
         websocket.send(JSON.stringify(requestMsg));
     }
 
+    /*
+    Sends request for mapping info
+    */
+    this.requestMappingInfo = function () {
+        var requestMsg = {
+            "messagetype": "getMappingInfo",
+            "data": ""
+        }
+        websocket.send(JSON.stringify(requestMsg));
+    }
+
     this.onSocketOpen = function (evt) {
         // subscribe the message types
         if (this.messageManager) {

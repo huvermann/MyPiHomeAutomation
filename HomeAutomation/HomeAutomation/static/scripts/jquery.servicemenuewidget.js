@@ -117,6 +117,10 @@
             this.servicelocator.MessageManager.requestPages();
         },
 
+        sendMappingInfoRequest: function(){
+            this.servicelocator.MessageManager.requestMappingInfo()
+        },
+
         onLogonRequired: function(message, targetElement){
             refreshJQueryComponents(targetElement);
             loading("hide");

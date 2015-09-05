@@ -23,6 +23,8 @@ $(document).on('pageinit', '#mapping', function () {
             id : "2345"
         }
     ];
+    // Daten abholen
+    $('#mainmenue').servicemenuwidget().servicemenuwidget("sendMappingInfoRequest");
 
 });
 $(document).on('pagebeforeshow', '#mapping', function () {

@@ -88,6 +88,28 @@
         mm.onSocketMessage(testEvent);
     });
 
+    it("requestMappingInfo sends websocket message", function () {
+        var container = function (wsuri) { };
+        var message = null;
+        var webSocketMock = function () {
+        }
+        webSocketMock.send = function (msg) {
+            message = msg;
+        };
+
+        var mockCreateWebSocket = function () {
+            return webSocketMock
+
+        };
+        var mm = new MessageManagerII(container);
+        mm.createWebSocket = mockCreateWebSocket
+        mm.open();
+        mm.requestMappingInfo();
+        actual = JSON.parse(message);
+        console.log(actual);
+        expect(actual.messagetype).toBe('getMappingInfo');
+    });
+
     // todo: write a test for OnSocketMessage with valid json data and calls the messagehandler
     // or does not call the message handler if no messagetype
 
