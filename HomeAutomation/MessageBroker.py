@@ -11,7 +11,6 @@ import os
 
 clients = []
 
-
 class MessageBroker(WebSocket):
 
     def __init__(self, server, sock, address):
@@ -20,12 +19,9 @@ class MessageBroker(WebSocket):
         self.wronLogonAttempts = 0
         self._clientType = None
         self._hardware = None
-    
-    def getClients(self):
-        """Used for testing reason"""
-        return clients
 
         return super(MessageBroker, self).__init__(server, sock, address)
+
     def handleMessage(self):
        print "Handle Message: "
        print self.data

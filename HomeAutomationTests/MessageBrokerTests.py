@@ -2,7 +2,9 @@
 import sys
 import json
 sys.path.append("..\HomeAutomation")
-from MessageBroker import MessageBroker
+import MessageBroker
+from MessageBroker import MessageBroker as MessBro
+
 
 class MessMock(object):
     def __init__(self):
@@ -34,8 +36,16 @@ class NodeMock(object):
 
 class Test_MessageBrokerTests(unittest.TestCase):
 
+    def setUp(self):
+        MessageBroker.clients = []
+        pass
+
+    def tearDown(self):
+        MessageBroker.clients = []
+        pass
+
     def test_MessageBrokerNullMessage(self):
-        mbroker = MessageBroker(None, None, "")
+        mbroker = MessBro(None, None, "")
         message = {}
         mbroker.parseJsonMessage(None)
 
@@ -45,7 +55,7 @@ class Test_MessageBrokerTests(unittest.TestCase):
 
         message = {"messagetype" : "nodeinfo",
                    "data" : {}}
-        mbroker = MessageBroker(None, None, "")
+        mbroker = MessBro(None, None, "")
         mbroker.nodeInfo = mock.mockNodeInfo
         mbroker.parseJsonMessage(message)
         self.assertTrue(mock.mockNodeInfoCalled)
@@ -56,7 +66,7 @@ class Test_MessageBrokerTests(unittest.TestCase):
 
         message = {"messagetype" : "nodeinfo",
                    "data" : [{"nodeid" : "testnodeid", "description" : "testdescr"}]}
-        mbroker = MessageBroker(None, None, "")
+        mbroker = MessBro(None, None, "")
         mbroker.nodeInfo(message)
         self.assertEqual(message["data"], mbroker._hardware)
 
@@ -65,7 +75,7 @@ class Test_MessageBrokerTests(unittest.TestCase):
         mock = MessMock()
 
         message = {"messagetype" : "getMappingInfo"}
-        mbroker = MessageBroker(None, None, "")
+        mbroker = MessBro(None, None, "")
         mbroker.sendMappingInfo = mock.mockMethodWithOutParams
         self.assertFalse(mock.mockCalled)
         mbroker.parseJsonMessage(message)
@@ -74,7 +84,7 @@ class Test_MessageBrokerTests(unittest.TestCase):
     def test_sendMappingInfoCallsSendMessage(self):
         """Checks if sendMappingInfo calls sendMessage."""
         mock = MessMock()
-        mbroker = MessageBroker(None, None, "")
+        mbroker = MessBro(None, None, "")
         mbroker.sendMessage = mock.mockMethodWithOneParam
         self.assertFalse(mock.mockCalled)
         mbroker.sendMappingInfo()
@@ -83,7 +93,7 @@ class Test_MessageBrokerTests(unittest.TestCase):
     def test_sendMappingInfo_CreatesMessage(self):
         """Checks if sendMappingInfo creates correct message type"""
         mock = MessMock()
-        mbroker = MessageBroker(None, None, "")
+        mbroker = MessBro(None, None, "")
         mbroker.sendMessage = mock.mockMethodWithOneParam
         mbroker.sendMappingInfo()
         message = json.loads(mock.param.encode('utf-8'))
@@ -97,11 +107,10 @@ class Test_MessageBrokerTests(unittest.TestCase):
         mockHardwareClient = NodeMock("hardware", hardwareInfo)
         mockBrowserClient = NodeMock("browser", None)
 
-        mbroker = MessageBroker(None, None, "")
-        clientsList = mbroker.getClients()
-
-        clientsList.append(mockHardwareClient)
-        clientsList.append(mockBrowserClient)
+        mbroker = MessBro(None, None, "")
+        # setup client items
+        MessageBroker.clients.append(mockHardwareClient)
+        MessageBroker.clients.append(mockBrowserClient)
         mbroker.sendMessage = mock.mockMethodWithOneParam
         mbroker.sendMappingInfo()
         message = json.loads(mock.param.encode('utf-8'))
@@ -110,8 +119,7 @@ class Test_MessageBrokerTests(unittest.TestCase):
         self.assertTrue(message["data"][0] == hardwareInfo)
         self.assertEqual(len(message["data"]), 1)
         
-
-        clientsList = []
+        
 
         
 
