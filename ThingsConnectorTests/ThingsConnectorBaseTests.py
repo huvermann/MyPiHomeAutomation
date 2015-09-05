@@ -146,19 +146,6 @@ class Test_ThingsConnectorBaseTests(unittest.TestCase):
         self.assertEqual(hardware['description'], "descr")
 
 
-
-
-
-
-
-        
-
-
-
-
-
-
-
         
 
 if __name__ == '__main__':

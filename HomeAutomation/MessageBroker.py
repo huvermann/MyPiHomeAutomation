@@ -20,6 +20,10 @@ class MessageBroker(WebSocket):
         self.wronLogonAttempts = 0
         self._clientType = None
         self._hardware = None
+    
+    def getClients(self):
+        """Used for testing reason"""
+        return clients
 
         return super(MessageBroker, self).__init__(server, sock, address)
     def handleMessage(self):
@@ -85,23 +89,36 @@ class MessageBroker(WebSocket):
         if message:
             messagetype = message['messagetype']
             if messagetype:
-                if messagetype == u'subscribe':
+                if messagetype == u'subscribe': #client subscribes a message type
                     self.subscribe(message)
-                elif messagetype == u'unsubscribe':
+                elif messagetype == u'unsubscribe': #client unsubscribes from message type
                     self.unsubscribe(message)
-                elif messagetype == u'getPages':
+                elif messagetype == u'getPages': # client requests page info
                     self.getPages(message)                        
-                elif messagetype == u'pullupdates':
+                elif messagetype == u'pullupdates': # Client requests for hardware status update
                      self.sendRefreshBroadcast()
-                elif messagetype == u'logon':
+                elif messagetype == u'logon': # Client tries to authenticate
                     self.logon(message)
-                elif messagetype == u'authHardware':
+                elif messagetype == u'authHardware': # Hardware client tries to authenticate
                     self.logonHardware(message)
-                elif messagetype == u'nodeinfo':
+                elif messagetype == u'nodeinfo': # Hardware node sends node infos
                     self.nodeInfo(message)
+                elif messagetype == u'getMappingInfo': # Browser client requests for mapping infos
+                    self.sendMappingInfo()
+                    
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
+
+    def sendMappingInfo(self):
+        """Send current hardware mapping data to client"""
+        mapping = []
+        for client in clients:
+            if client._clientType == "hardware":
+                mapping.append(client._hardware)
+        message = self.envelopeMessage("MappingInfo", mapping)
+        self.sendMessage(message)
+        pass
 
     def nodeInfo(self, message):
         """Reads the node info from message."""

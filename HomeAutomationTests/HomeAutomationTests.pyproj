@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e3aa45c0-77b5-4fe8-a211-7e4744b7f3f0</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>HomeAutomationTests.py</StartupFile>
+    <StartupFile>MessageBrokerTests.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="HomeAutomationTests.py" />
+    <Compile Include="MessageBrokerTests.py" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HomeAutomation\HomeAutomation.pyproj">
