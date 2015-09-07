@@ -4,23 +4,20 @@
 <script src="/static/scripts/jquery.gauge.js"></script>
 <script src="/static/scripts/jquery.zgaugewidget.js"></script>
 <script src="/static/scripts/jquery.servicemenuewidget.js"></script>
-<script src="/static/scripts/room_assignment.js"></script>
+<script src="/static/scripts/viewmodelbase.js"></script>
+<script src="/static/scripts/viewmodel_mapping.js"></script>
+<script src="/static/scripts/viewmodel_mappingdetails.js"></script>
+<script src="/static/scripts/viewmodel_item.js"></script>
 <script>
-    //$(document).on({
-    //    "mousedown touchstart": function () {
-    //        $(this).siblings("input").trigger("start");
-    //    },
-    //    "mouseup touchend": function () {
-    //        $(this).siblings("input").trigger("stop");
-    //    }
-    //}, ".ui-slider");
 
+
+    var mappingViewModel;
+    var detailsViewModel
     $(document).ready(function () {
-        //$('input[data-type=range]').bind('change', function () {
-        //    console.log("Slider changed");
-        //});
+        mappingViewModel = Viewmodel_mapping("#mapping");
+        detailsViewModel = Viewmodel_mappingdetails("#mappingdetail");
+        itemViewModel = Viewmodel_Item("#itemdetail");
+
         console.log("ready");
-        //$("#popupLogin").popup("refresh");
-        //$("#popupLogin").popup("open");
         });
 </script>

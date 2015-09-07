@@ -119,29 +119,23 @@
     },
     {
       "PageName": "Kueche",
-      "ID": "Page3"
+      "ID": "Page3",
+      "Items": []
     },
     {
       "PageName": "Aussenbereich",
-      "ID": "Page4"
+      "ID": "Page4",
+      "Items": []
     },
     {
       "PageName": "Garage",
-      "ID": "Garage"
+      "ID": "Garage",
+      "Items": []
     },
     {
       "PageName": "Solar",
-      "ID": "Solar"
-    },
-    {
-      "PageName": "Chat",
-      "ID": "Chat",
-      "Items": [
-        {
-          "id": "1023D81E-C071-43F2-B7D7-3A83868CDF2C",
-          "type" :  "chat"
-        }
-      ]
+      "ID": "Solar",
+      "Items": []
     }
   ]
 }

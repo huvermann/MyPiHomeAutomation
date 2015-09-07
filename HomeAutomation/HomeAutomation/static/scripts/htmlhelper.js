@@ -7,7 +7,6 @@ function loading(showOrHide) {
 
 function refreshJQueryComponents(targetElement) {
     var instance = targetElement.servicemenuwidget().servicemenuwidget('instance');
-    console.log("components refresh");
     $('div[data-role=collapsible]').collapsible();
     $('select[data-role=flipswitch]').flipswitch();
 

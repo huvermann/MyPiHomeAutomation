@@ -15,7 +15,6 @@
 
         /** Constructor **/
         _create: function () {
-            console.log("_create has been called");
             //loading('show');
             this.servicelocator = new Injector(this.configure);
             inputElement = this.element;
@@ -50,7 +49,6 @@
             var inputElement = this.element;
             var opts = $.extend(this.options, inputElement.data("options"));
             $(document).trigger("servicemenuwidgetupdate");
-            console.log("ja, update wird aufgerufen");
             refreshJQueryComponents();
         },
 
@@ -93,6 +91,7 @@
             messageManager.registerMessage("PageList", this.onPageList, this.element);
             messageManager.registerMessage("Hardware", this.onHardwareMessage, this.element);
             messageManager.registerMessage("Chat", this.onChatMessage, this.element);
+            messageManager.registerMessage("MappingInfo", this.onMappingInfoResponse, this.element);
         },
 
         onLogonResult: function(message, targetElement){
@@ -110,6 +109,12 @@
                 $("#loginMessage").empty().append('Login gescheitert!');
                 // show logon popup again:
                 $("#popupLogin").popup("open");
+            }
+        },
+
+        onMappingInfoResponse: function(message, targetElement){
+            if (message.data) {
+                $(document).trigger("onMappingInfoResponse", message, targetElement);
             }
         },
 
@@ -132,8 +137,8 @@
                 pagesToCollapsible(message.data.pages, targetElement);
             }
             refreshJQueryComponents(targetElement);
-            console.log("Versuche pull updates...");
             targetElement.servicemenuwidget("pullUpdates");
+            $(document).trigger("onPageListResponse", message);
             loading("hide");
         },
 
@@ -205,8 +210,6 @@
         },
 
         onHardwareMessage: function(message, targetElement){
-            console.log("Hardware message received");
-            console.log(message);
             var hwid = message.data.hwid;
             var value = message.data.value;
 
@@ -214,7 +217,6 @@
                 $('[hardwareId="' + hwid + '"]').each(function () {
 
                     elementType = targetElement.servicemenuwidget('getElementType', this);
-                    console.log("ElementType: " + elementType);
                     // Update all items assigned to specific hardware id
                     switch (elementType) {
                         case "FlipSwitch":
@@ -248,7 +250,6 @@
         onUserChangedSwitch: function(event, ui){            
             var id = this.id,
             value = this.value;
-            console.log(id + " has been changed! " + value);
             var messagecomponent = $(this).attr('messagecomponent');
             $("#" + messagecomponent).servicemenuwidget("sendUIMessage", id, value);
         },
@@ -266,7 +267,6 @@
         },
 
         sendUIMessage(id, value) {
-            console.log("send message***");
             var message = {
                 "messagetype": "UI-Message",
                 "data": { hwid: id, value: value }
