@@ -4,16 +4,29 @@
 
 
     this.onMappingClickNew = function () {
-        //alert("click new");
+        var groupname = $("#newgroupname").val();
+        console.log("groupname: " + groupname);
+        
+        if (groupname.length > 0) {
+            var newGroup = {
+                "ID": groupname,
+                "Items": [],
+                "PageName": groupname
+
+            };
+            $("#newgroupname").val('');
+            self.pageInfo.pages.push(newGroup);
+            self.mappingRefresh();
+        }
+        
         $("#dlgaddgroup").popup("close");
-        console.log('$("#dlgaddgroup").popup("close");');
         return false;
     }
 
     this.onMappingClickSave = function () {
-        //alert("save");
-        console.log('$("#dlgsave").popup("close");');
         $('#dlgsave').popup("close");
+        // send save message
+        $('#mainmenue').servicemenuwidget().servicemenuwidget("sendSavePages", self.pageInfo);
         return false;
     }
 
@@ -23,14 +36,15 @@
         console.log("assign buttons.")
         $("#mapping_newroom").on("click", self.onMappingClickNew);
         $("#mapping_save").on("click", self.onMappingClickSave);
+    }
 
-
+    this.mappingRefresh = function(){
+        self.render_listview();
+        $('#mappinglistview').listview("refresh");
     }
 
     this.onViewBeforeShow = function (event, message) {
-        self.render_listview();
-        $('#mappinglistview').listview("refresh");
-
+        self.mappingRefresh();
     }
 
     this.onMappingInfoResponse = function (event, message, senderElement) {

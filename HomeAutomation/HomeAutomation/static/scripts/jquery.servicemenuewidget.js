@@ -142,6 +142,12 @@
             loading("hide");
         },
 
+        // User saves the changed group/page list.
+        sendSavePages: function (data) {
+            console.log("sendSavePages");
+            console.log(data);
+        },
+
         // Pull updates from message bus / broker
         pullUpdates: function () {
             var message = {
