@@ -146,6 +146,9 @@
         sendSavePages: function (data) {
             console.log("sendSavePages");
             console.log(data);
+            if (data) {
+                this.servicelocator.MessageManager.savePageList(data);
+            }
         },
 
         // Pull updates from message bus / broker

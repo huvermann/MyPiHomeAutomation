@@ -82,6 +82,18 @@ function MessageManagerII(injector) {
         }
         websocket.send(JSON.stringify(requestMsg));
     }
+    /*
+    Saves pages data
+    */
+    this.savePageList = function (data) {
+        if (data) {
+            var msg = {
+                "messagetype": "savePages",
+                "data": data
+            }
+            websocket.send(JSON.stringify(msg));
+        }
+    }
 
     /*
     Sends request for mapping info

@@ -19,6 +19,7 @@ class MessageBroker(WebSocket):
         self.wronLogonAttempts = 0
         self._clientType = None
         self._hardware = None
+        self._groupConfigFile = os.path.join(os.path.dirname(__file__), 'homeconfig.json')
 
         return super(MessageBroker, self).__init__(server, sock, address)
 
@@ -53,17 +54,33 @@ class MessageBroker(WebSocket):
         pass
 
     def readPagesConfig(self):
-        filepath = os.path.join(os.path.dirname(__file__), 'homeconfig.json')
-        print "filepath: " + filepath
+   
         result = ""
         try:
             # Can not handle utf8!!!!
-            input_file = file(filepath, "r")
+            input_file = file(self._groupConfigFile, "r")
             result = json.loads(input_file.read().decode("utf-8-sig"))
         except Exception, e:
             print e
 
         return result
+
+    def savePagesConfigFile(self, data):
+        """Saves the config file."""
+        try:
+            if data:
+                prettyOutput = json.dumps(data, indent=4, separators=(',', ': '))
+                f=open(self._groupConfigFile, 'w')
+                f.write(prettyOutput)
+                f.flush()
+                f.close
+
+            pass
+        except Exception, e:
+            print e
+        pass
+
+
 
     def envelopeMessage(self, messagetype, data):
         result = {
@@ -101,11 +118,19 @@ class MessageBroker(WebSocket):
                     self.nodeInfo(message)
                 elif messagetype == u'getMappingInfo': # Browser client requests for mapping infos
                     self.sendMappingInfo()
+                elif messagetype == u'savePages':
+                    self.savePages(message)
                     
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
 
+    def savePages(self, message):
+        if self.grandAccess:
+            print "save pages!!!"
+            self.savePagesConfigFile(message["data"])
+        pass
+    
     def sendMappingInfo(self):
         """Send current hardware mapping data to client"""
         mapping = []
