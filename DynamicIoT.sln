@@ -11,6 +11,10 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ThingsConnectorTests", "Thi
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "HomeAutomationTests", "HomeAutomationTests\HomeAutomationTests.pyproj", "{E3AA45C0-77B5-4FE8-A211-7E4744B7F3F0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E51E0192-6CF0-4814-AE9C-B051E520A47A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E38B7B35-9950-4BAA-A9C5-2EB4F9AAEC9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0DB9F3EC-90EC-45BE-A787-DB8220C89825} = {E51E0192-6CF0-4814-AE9C-B051E520A47A}
+		{E3AA45C0-77B5-4FE8-A211-7E4744B7F3F0} = {E51E0192-6CF0-4814-AE9C-B051E520A47A}
 	EndGlobalSection
 EndGlobal
