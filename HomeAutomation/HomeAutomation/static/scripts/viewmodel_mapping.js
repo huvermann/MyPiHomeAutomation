@@ -3,24 +3,43 @@
     ViewModelBase.call(this, pageName);
 
 
-    onViewPageCreate = function () {
+    this.onMappingClickNew = function () {
+        //alert("click new");
+        $("#dlgaddgroup").popup("close");
+        console.log('$("#dlgaddgroup").popup("close");');
+        return false;
+    }
+
+    this.onMappingClickSave = function () {
+        //alert("save");
+        console.log('$("#dlgsave").popup("close");');
+        $('#dlgsave').popup("close");
+        return false;
+    }
+
+    this.onViewPageCreate = function () {
         $('#mainmenue').servicemenuwidget().servicemenuwidget("sendMappingInfoRequest");
+        // Assign buttons
+        console.log("assign buttons.")
+        $("#mapping_newroom").on("click", self.onMappingClickNew);
+        $("#mapping_save").on("click", self.onMappingClickSave);
+
 
     }
 
-    onViewBeforeShow = function (event, message) {
+    this.onViewBeforeShow = function (event, message) {
         self.render_listview();
         $('#mappinglistview').listview("refresh");
 
     }
 
-    onMappingInfoResponse = function (event, message, senderElement) {
+    this.onMappingInfoResponse = function (event, message, senderElement) {
         if (message.data) {
             self.mappingInfo = message.data;
         }
     }
 
-    render_listview = function () {
+    this.render_listview = function () {
         var listview = $('#mappinglistview');
         var html = '<li data-role="list-divider">Gruppen</li>';
 
@@ -34,6 +53,8 @@
         listview.append(html);
         listview.listview().listview('refresh');
     }
+
+    $("#mapping").on('pagecreate', this.onViewPageCreate);
 
     return this;
 }

@@ -1,143 +1,19 @@
 ﻿{% extends "maintemplate.html" %}
 
 {% block content %}
-<!-- Start of first page -->
-<div data-role="page" id="mainpage" data-theme="b" data-content-theme="b">
-    <div data-role="header">
-        <h1>Home Automation System</h1>
-        <a href="#settings" data-icon="gear" class="ui-btn-right" data-transition="flip">Einstellungen</a>
-    </div>
-    <div id="CollapsibleContent">
-        <div id="mainmenue" data-role="servicemenuwidget" data-model="collapsible"></div>
-        <!--<a href="#popupLogin" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left ui-btn-a" data-transition="pop">Anmelden</a>-->
 
-        <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-            <form>
-                <div style="padding:10px 20px;">
-                    <h3>Anmelden</h3>
-                    <label for="un" class="ui-hidden-accessible">Benutzername:</label>
-                    <input type="text" name="user" id="un" value="" placeholder="Benutzername" data-theme="a">
-                    <label for="pw" class="ui-hidden-accessible">Password:</label>
-                    <input type="password" name="pass" id="pw" value="" placeholder="Passwort" data-theme="a">
-                    <div id="loginMessage"></div>
-                    <button class="ui-btn ui-corner ui-shadow ui-bnt-b ui-btn-icon-left ui-icon-check" id="LogonBtn">Anmelden</button>
-
-                </div>
-            </form>
-        </div>
-
-    </div>
-    <div data-role="footer" data-position="fixed">
-        <a href="/debug" target="_blank">debug</a>
-        <a href="#" onclick='$("#popupLogin").popup("open"); return false;'>Popup</a>
-        <h4>Page Footer</h4>
-
-    </div>
-</div>
-<div data-role="page" id="settings" data-theme="b" data-content-theme="b">
-    <div data-role="header">
-        <a href="#mainpage" data-icon="home" class="ui-btn-left" data-rel="back">Zurück</a>
-        <h1>Home Automation System</h1>
-    </div>
-    <div id="settingscontent">
-        <ul data-role="listview" data-ajax="false" data-inset="true" data-theme="b">
-            <li data-role="list-divider">Teiler</li>
-            <li><a href="#mapping" data-transition="slidefade">Raum-Gerätezuordnung</a></li>
-            <li><a href="#usermanagement" data-transition="slidefade">Benutzerverwaltung</a></li>
-            <li><a href="#usermanagement" data-transition="slidefade">Regeln verwalten</a></li>
-        </ul>
-    </div>
-
-
-
-
-    <div data-role="footer" data-position="fixed">
-        <h4>Page Footer</h4>
-
-        <a href="/debug" target="_blank">debug</a>
-    </div>
-
-</div>
-
-<div data-role="page" id="mapping" data-theme="b" data-content-theme="b">
-    <div data-role="header">
-        <a href="#settings" data-rel="back" data-icon="back" class="ui-btn-left">Zurück</a>
-        <h1>Geräte-Raum-Zuordnung</h1>
-    </div>
-    <div id="mappingcontent">
-
-            <ul data-role="listview" id="mappinglistview" data-inset="true" data-divider-theme="a">
-                <li data-role="list-divider">Dummy content</li>
-                <li><a href="#mappingdetail">Gruppe1</a></li>
-                <li><a href="#mappingdetail">Gruppe2</a></li>
-                <li><a href="#mappingdetail">Gruppe3</a></li>
-                <li><a href="#mappingdetail">Gruppe 4</a></li>
-            </ul>
-
-    </div>
-
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar" data-iconpos="bottom">
-            <ul>
-                <li><a href="#" data-icon="plus" id="btn-new-room">Neuer Raum</a></li>
-                <li><a href="#" data-icon="check" id="btn-save-assignment">Speichern</a></li>
-            </ul>
-        </div>
-    </div>
-
-</div>
-
-<div data-role="page" id="mappingdetail" data-theme="b" data-content-theme="b">
-    <div data-role="header">
-        <a href="#mapping" data-rel="back" data-icon="back" class="ui-btn-left">Zurück</a>
-        <h1>Funktionsliste für Gruppe</h1>
-    </div>
-
-    <div id="detailscontent">
-        <ul data-role="listview" id="mappingdetail-listview" data-inset="true" data-divider-theme="b">
-            <li data-role="list-divider">Details</li>
-            <li><a href="#item-detail">Funktion 1</a></li>
-            <li><a href="#item-detail">Funktion 2</a></li>
-            <li><a href="#item-detail">Funktion 3</a></li>
-            <li><a href="#item-detail">Funktion 4</a></li>
-        </ul>
-    </div>
-
-
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar" data-iconpos="bottom">
-            <ul>
-                <li><a href="#" data-icon="plus" id="xbtn-new-room">Neuer Raum</a></li>
-                <li><a href="#" data-icon="check" id="xbtn-save-assignment">Speichern</a></li>
-            </ul>
-        </div>
-    </div>
-
-</div>
-
-<div data-role="page" id="itemdetail" data-theme="b" data-content-theme="b">
-    <div data-role="header">
-        <a href="mappingdetail" data-rel="back" data-icon="back" class="ui-btn-left">Zurück</a>
-        <h1>Funktion - Details</h1>
-    </div>
-
-    <div id="itemdetailscontent">Item Details</div>
-
-
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar" data-iconpos="bottom">
-            <ul>
-                <li><a href="#" data-icon="plus" id="xbtn-new-room">Neuer Raum</a></li>
-                <li><a href="#" data-icon="check" id="xbtn-save-assignment">Speichern</a></li>
-            </ul>
-        </div>
-    </div>
-
-</div>
+{% include 'views/main.html' %}
+{% include 'views/settings.html' %}
+{% include 'views/mapping.html' %}
+{% include 'views/mappingdetail.html' %}
+{% include 'views/itemdetail.html' %}
+{% include 'views/usermanagement.html' %}
 
 
     {% endblock %}
 
     {% block scripts %}
     {% include 'scripts_template.html' %}
+    
     {% endblock %}
+

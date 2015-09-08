@@ -6,17 +6,34 @@
     var pageName = pageName; 
     var self = this;
 
-    onSelectGroup = function(event, message) {
+    this.onSelectGroup = function(event, message) {
         self.selectedGroup = message;
     }
 
-    onPageListResponse = function (event, message) {
+    this.onPageListResponse = function (event, message) {
         if (message.data) {
             self.pageInfo = message.data;
         }
     }
 
-    onBeforeShow = function(event, message) {
+    this.onClickNew = function () {
+        alert("todo implement new function.");
+        //Todo: implement
+        return false;
+    }
+
+    this.onClickSave = function () {
+        alert("todo: implement save");
+        return false;
+    }
+
+    this.onViewPageCreate = function () {
+        // Assign buttons
+        $("#mappingdetail_new_function").on("click", self.onClickNew);
+        $("#mappingdetail_save").on("click", self.onClickSave);
+    }
+
+    this.onBeforeShow = function(event, message) {
         // Listview aktualisieren
         var listview = $('#mappingdetail-listview');
         var html = "";
@@ -26,7 +43,7 @@
         listview.listview("refresh");
     }
 
-    renderList = function () {
+    this.renderList = function () {
         var group = self.pageInfo.pages[self.selectedGroup];
         var html = '<li data-role="list-divider">'+group.PageName+'</li>';
         for (item in group.Items) {
@@ -40,5 +57,7 @@
     // on select group event:
     $(document).on('selectgroup', self.onSelectGroup);
     $("#mappingdetail").on('pagebeforeshow', this.onBeforeShow);
+    $("#mappingdetail").on('pagecreate', this.onViewPageCreate);
+
     $(document).bind("onPageListResponse", this.onPageListResponse);
 }

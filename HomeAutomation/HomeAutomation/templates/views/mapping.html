@@ -1,0 +1,55 @@
+﻿<div data-role="page" id="mapping" data-theme="b" data-content-theme="b">
+    <div data-role="header">
+        <a href="#settings" data-rel="back" data-icon="back" class="ui-btn-left">Zurück</a>
+        <h1>Geräte-Raum-Zuordnung</h1>
+    </div>
+    <div id="mappingcontent">
+
+        <ul data-role="listview" id="mappinglistview" data-inset="true" data-divider-theme="a">
+            <li data-role="list-divider">Dummy content</li>
+            <li><a href="#mappingdetail">Gruppe1</a></li>
+            <li><a href="#mappingdetail">Gruppe2</a></li>
+            <li><a href="#mappingdetail">Gruppe3</a></li>
+            <li><a href="#mappingdetail">Gruppe 4</a></li>
+        </ul>
+
+    </div>
+    <!--Dialog speichern-->
+    <div data-role="popup" id="dlgsave" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:600px;">
+        <div data-role="header" data-theme="a">
+            <h1>Speichern</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Wollen Sie die Änderungen Speichern?</h3>
+            <p>text</p>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Abbruch</a>
+            <a href="#" id="mapping_save" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Ja</a>
+        </div>
+    </div>
+    <!--/Dialog-->
+    <!--Dialog Neue Gruppe-->
+    <div data-role="popup" id="dlgaddgroup" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:600px;">
+        <div data-role="header" data-theme="a">
+            <h1>Neue Gruppe bzw. Raum</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Name der Gruppe:</h3>
+            <input type="text" name="newgroupname" id="newgroupname" placeholder="Gruppenname" value="" data-mini="true" />
+
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Abbruch</a>
+            <a href="#" id="mapping_newroom" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">OK</a>
+        </div>
+    </div>
+    <!--/Dialog Neue Gruppe-->
+
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="bottom">
+            <ul>
+                <li><a href="#dlgaddgroup" data-rel="popup" data-position-to="window" data-icon="plus">Neuer Raum</a></li>
+                <li><a href="#dlgsave" data-rel="popup" data-position-to="window" data-icon="check">Speichern</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

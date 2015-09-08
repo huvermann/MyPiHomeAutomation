@@ -4,20 +4,32 @@
     var self = this;
     var pageInfo = null;
 
-    onSelectItem = function (event, message) {
+
+    this.onRemoveItemClick = function() {
+        alert("Remove item");
+        popup = $("#dialogYesNo").popup("open");
+        return false;
+    }
+
+    this.onItemViewPageCreate = function () {
+        // Assign button click event
+        $("#itemdetailremove").on("click", self.onRemoveItemClick);
+    }
+
+    this.onSelectItem = function (event, message) {
         selectedItem = message;
     }
 
-    onSelectGroup = function (event, message) {
+    this.onSelectGroup = function (event, message) {
         selectedGroup = message;
     }
-    onPageListResponse = function (event, message) {
+    this.onPageListResponse = function (event, message) {
         if (message.data) {
             pageInfo = message.data.pages;
         }
     }
 
-    onBeforeShow = function(){
+    this.onBeforeShow = function(){
         var details = $('#itemdetailscontent').empty();
         var itemData = pageInfo[selectedGroup].Items[selectedItem];
         var html = self.renderItemData(itemData);
@@ -25,7 +37,7 @@
         $('#itemdetaillistview').listview().listview("refresh");
     }
 
-    renderItemData = function(item) {
+    this.renderItemData = function(item) {
         var html = '<ul data-role="listview" id="itemdetaillistview">';
         html += "<h2>Funktionseigenschaften</h2>";
         for (key in item) {
@@ -41,6 +53,10 @@
     $(document).on('selectitem', self.onSelectItem);
     $(document).on('selectgroup', self.onSelectGroup);
 
-    $(document).bind("onPageListResponse", this.onPageListResponse);
+    $("#itemdetail").on('pagecreate', this.onItemViewPageCreate);
     $("#itemdetail").on('pagebeforeshow', this.onBeforeShow);
+
+    $(document).bind("onPageListResponse", this.onPageListResponse);
+    
+    return this;
 }
