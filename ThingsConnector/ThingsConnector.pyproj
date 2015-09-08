@@ -28,6 +28,9 @@
     <Compile Include="CpuUsageItem.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EnoceanFunkBridg.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ItemTypes.py">
       <SubType>Code</SubType>
     </Compile>
