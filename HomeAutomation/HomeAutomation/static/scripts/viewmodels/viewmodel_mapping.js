@@ -33,7 +33,6 @@
     this.onViewPageCreate = function () {
         $('#mainmenue').servicemenuwidget().servicemenuwidget("sendMappingInfoRequest");
         // Assign buttons
-        console.log("assign buttons.")
         $("#mapping_newroom").on("click", self.onMappingClickNew);
         $("#mapping_save").on("click", self.onMappingClickSave);
     }

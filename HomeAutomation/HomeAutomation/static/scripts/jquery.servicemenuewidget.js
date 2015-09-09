@@ -148,6 +148,10 @@
             console.log(data);
             if (data) {
                 this.servicelocator.MessageManager.savePageList(data);
+                // update main
+                pagesToCollapsible(data.pages, this.element);
+                refreshJQueryComponents(this.element);
+                loading("hide");
             }
         },
 
