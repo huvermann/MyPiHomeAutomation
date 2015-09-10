@@ -44,6 +44,7 @@ if __name__ == "__main__":
     
     if (is_windows):
         nodeId = "WindowsNode4711" # Eindeutige Id
+        nodeName = "Schreibtisch"
     else:
         nodeId = "LinuxNode4711" # Eindeutige Id
         nodeName = "Raspberry Keller"
