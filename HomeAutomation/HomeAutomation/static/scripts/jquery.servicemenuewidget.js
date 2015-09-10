@@ -108,7 +108,9 @@
             } else {
                 $("#loginMessage").empty().append('Login gescheitert!');
                 // show logon popup again:
+                $('#popupLogin').popup("close");
                 $("#popupLogin").popup("open");
+                console.log("failed");
             }
         },
 
