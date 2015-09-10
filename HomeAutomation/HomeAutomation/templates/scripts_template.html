@@ -1,26 +1,24 @@
 ﻿<script src="/static/scripts/htmlhelper.js"></script>
+<script src="static/scripts/extensions.js"></script>
 <script src="/static/scripts/injector.js"></script>
 <script src="/static/scripts/messagemanager.js"></script>
 <script src="/static/scripts/jquery.gauge.js"></script>
 <script src="/static/scripts/jquery.zgaugewidget.js"></script>
 <script src="/static/scripts/jquery.servicemenuewidget.js"></script>
-<script src="/static/scripts/room_assignment.js"></script>
+<script src="/static/scripts/viewmodels/viewmodelbase.js"></script>
+<script src="/static/scripts/viewmodels/viewmodel_mapping.js"></script>
+<script src="/static/scripts/viewmodels/viewmodel_mappingdetails.js"></script>
+<script src="/static/scripts/viewmodels/viewmodel_item.js"></script>
 <script>
-    //$(document).on({
-    //    "mousedown touchstart": function () {
-    //        $(this).siblings("input").trigger("start");
-    //    },
-    //    "mouseup touchend": function () {
-    //        $(this).siblings("input").trigger("stop");
-    //    }
-    //}, ".ui-slider");
 
+
+    var mappingViewModel;
+    var detailsViewModel
     $(document).ready(function () {
-        //$('input[data-type=range]').bind('change', function () {
-        //    console.log("Slider changed");
-        //});
+        mappingViewModel = Viewmodel_mapping("#mapping");
+        detailsViewModel = Viewmodel_mappingdetails("#mappingdetail");
+        itemViewModel = Viewmodel_Item("#itemdetail");
+
         console.log("ready");
-        //$("#popupLogin").popup("refresh");
-        //$("#popupLogin").popup("open");
         });
 </script>

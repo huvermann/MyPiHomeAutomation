@@ -1,0 +1,68 @@
+﻿<div data-role="page" id="mappingdetail" data-theme="b" data-content-theme="b">
+    <div data-role="header">
+        <a href="#mapping" data-rel="back" data-icon="back" class="ui-btn-left">Zurück</a>
+        <h1>Funktionsliste für Gruppe</h1>
+    </div>
+
+    <div id="detailscontent">
+        <h2 id="mappinggroupname">[gruppenname]</h2>
+        <ul data-role="listview" id="mappingdetail-listview" data-inset="true" data-divider-theme="b">
+            <li data-role="list-divider">Details</li>
+            <li><a href="#item-detail">Funktion 1</a></li>
+            <li><a href="#item-detail">Funktion 2</a></li>
+            <li><a href="#item-detail">Funktion 3</a></li>
+            <li><a href="#item-detail">Funktion 4</a></li>
+        </ul>
+    </div>
+
+    <!--Dialog speichern-->
+    <div data-role="popup" id="dlgSaveMappingDetail" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:600px;">
+        <div data-role="header" data-theme="a">
+            <h1>Speichern</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Wollen Sie die Änderungen Speichern?</h3>
+            <p></p>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Abbruch</a>
+            <a href="#" id="mappingdetail_save" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a>
+        </div>
+    </div>
+    <!--/Dialog-->
+
+    <!--Dialog Delete-->
+    <div data-role="popup" id="dlgDeleteMappingDetail" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:600px;">
+        <div data-role="header" data-theme="a">
+            <h1>Löschen</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title">Wollen Sie diese gruppe wirklich löschen?</h3>
+            <p></p>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Abbruch</a>
+            <a href="#" id="mappingdetail_removegroup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a>
+        </div>
+    </div>
+    <!--/Dialog-->
+    <!--Dialog new function list-->
+    <div data-role="popup" id="popfunctionlist" data-theme="b">
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-left">Close</a>
+        <ul data-role="listview" id="popfunctionlistview" data-inset="true" style="min-width:300px;">
+            <li data-role="list-divider">Funktion auswählen</li>
+            <li><a href="#" >Funktion1</a></li>
+            <li><a href="#">Funktion2</a></li>
+            <li><a href="#">Funktion3</a></li>
+            <li><a href="#">Funktion4</a></li>
+        </ul>
+    </div>
+    <!--Dialog new function list-->
+
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="bottom">
+            <ul>
+                <!--<li><a href="#popfunctionlist" data-icon="plus" id="mappingdetail_new_function" data-position-to="window">Neue Funktion</a></li>-->
+                <li><a href="#popfunctionlist" data-icon="plus" data-rel="popup" data-position-to="window">Neue Funktion</a></li>
+                <li><a href="#dlgDeleteMappingDetail" data-icon="minus" data-rel="popup" data-position-to="window">Gruppe enternen</a></li>
+                <li><a href="#dlgSaveMappingDetail" data-icon="check" data-rel="popup" data-position-to="window">Speichern</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

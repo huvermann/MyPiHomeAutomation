@@ -230,11 +230,15 @@ class ThingsConectorBase(object):
                    
     def RunConnector(self):
         """Starts the run loop."""
-        websocket.enableTrace(True)
-        self.ws = websocket.WebSocketApp(self.url, on_message = on_message, on_error = on_error, on_close = on_close)
-        self.ws.connector = self
-        self.ws.on_open = on_open
-        self.ws.run_forever()
+        while(True):
+            websocket.enableTrace(True)
+            self.ws = websocket.WebSocketApp(self.url, on_message = on_message, on_error = on_error, on_close = on_close)
+            self.ws.connector = self
+            self.ws.on_open = on_open
+            self.ws.run_forever()
+            print "Connection lost...."
+            time.sleep(1)
+            print "Trying to reconnect"
         
         
         

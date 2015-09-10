@@ -19,6 +19,7 @@ module.exports = function(config) {
       //'static/jquery/jquery-1.11.3.js',
       //'static/jquery/jquery.mobile-1.4.5.js',
       'static/scripts/*.js',
+      'static/scripts/viewmodels/*.js',
       'static/scripts/tests/*.js'
       
     ],

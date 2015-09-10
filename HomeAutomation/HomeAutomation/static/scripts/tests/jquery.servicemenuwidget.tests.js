@@ -56,5 +56,11 @@
     it("Servicelocator contains MessageManager", function () {
         expect(actual.servicelocator).toBeDefined();
         expect(actual.servicelocator.MessageManager).toBeDefined();
+    }),
+    it("calls requestMappingInfo on MessageManager", function () {
+
+        actual.servicelocator.MessageManager.requestMappingInfo = jasmine.createSpy('requestMappingInfo, spy');
+        actual.sendMappingInfoRequest()
+        expect(actual.servicelocator.MessageManager.requestMappingInfo).toHaveBeenCalled()
     })
 });

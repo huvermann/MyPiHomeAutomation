@@ -59,7 +59,6 @@ function MessageManagerII(injector) {
     this.sendMessage = function (message) {
         if (message) {
             websocket.send(message);
-            console.log("mm send messag");
         }
     }
 
@@ -79,6 +78,29 @@ function MessageManagerII(injector) {
     this.requestPages = function () {
         var requestMsg = {
             "messagetype": "getPages",
+            "data": ""
+        }
+        websocket.send(JSON.stringify(requestMsg));
+    }
+    /*
+    Saves pages data
+    */
+    this.savePageList = function (data) {
+        if (data) {
+            var msg = {
+                "messagetype": "savePages",
+                "data": data
+            }
+            websocket.send(JSON.stringify(msg));
+        }
+    }
+
+    /*
+    Sends request for mapping info
+    */
+    this.requestMappingInfo = function () {
+        var requestMsg = {
+            "messagetype": "getMappingInfo",
             "data": ""
         }
         websocket.send(JSON.stringify(requestMsg));

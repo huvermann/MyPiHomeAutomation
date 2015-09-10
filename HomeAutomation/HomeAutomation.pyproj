@@ -33,9 +33,6 @@
     <Compile Include="Constants.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HomeAutomation\IOProvider.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="HomeAutomation\thingsUtils.py">
       <SubType>Code</SubType>
     </Compile>
@@ -59,7 +56,9 @@
     <Folder Include="HomeAutomation\static\jquery\images\" />
     <Folder Include="HomeAutomation\static\jquery\images\icons-png\" />
     <Folder Include="HomeAutomation\static\jquery\images\icons-svg\" />
+    <Folder Include="HomeAutomation\static\scripts\viewmodels\" />
     <Folder Include="HomeAutomation\static\scripts\tests\" />
+    <Folder Include="HomeAutomation\templates\views\" />
     <Folder Include="HomeAutomation\Tests\" />
     <Folder Include="HomeAutomation\static\" />
     <Folder Include="HomeAutomation\static\content\" />
@@ -294,6 +293,7 @@
     <Content Include="HomeAutomation\static\jquery\jquery.mobile.structure-1.4.5.min.css" />
     <Content Include="HomeAutomation\static\jquery\jquery.mobile.theme-1.4.5.css" />
     <Content Include="HomeAutomation\static\jquery\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="HomeAutomation\static\scripts\extensions.js" />
     <Content Include="HomeAutomation\static\scripts\gauge2.CoffeeScript" />
     <Content Include="HomeAutomation\static\scripts\gauge2.js" />
     <Content Include="HomeAutomation\static\scripts\htmlhelper.js" />
@@ -304,19 +304,29 @@
     <Content Include="HomeAutomation\static\scripts\jquery.mobile-1.4.5.js" />
     <Content Include="HomeAutomation\static\scripts\jquery.servicemenuewidget.js" />
     <Content Include="HomeAutomation\static\scripts\messagemanager.js" />
-    <Content Include="HomeAutomation\static\scripts\room_assignment.js" />
     <Content Include="HomeAutomation\static\scripts\tests\htmlhelper.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\injector.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\jquery.servicemenuwidget.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\jquery.zgaugewidget.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\messagemanager.tests.js" />
     <Content Include="HomeAutomation\static\scripts\tests\ui.teests.js" />
+    <Content Include="HomeAutomation\static\scripts\tests\ViewModelMapping.tests.js" />
+    <Content Include="HomeAutomation\static\scripts\viewmodels\viewmodelbase.js" />
+    <Content Include="HomeAutomation\static\scripts\viewmodels\viewmodel_item.js" />
+    <Content Include="HomeAutomation\static\scripts\viewmodels\viewmodel_mapping.js" />
+    <Content Include="HomeAutomation\static\scripts\viewmodels\viewmodel_mappingdetails.js" />
     <Content Include="HomeAutomation\templates\debugger.html" />
     <Content Include="HomeAutomation\templates\jsmobile.html" />
     <Content Include="HomeAutomation\templates\mainmenue.html" />
     <Content Include="HomeAutomation\templates\maintemplate.html" />
     <Content Include="HomeAutomation\templates\nomobile.html" />
     <Content Include="HomeAutomation\templates\scripts_template.html" />
+    <Content Include="HomeAutomation\templates\views\itemdetail.html" />
+    <Content Include="HomeAutomation\templates\views\main.html" />
+    <Content Include="HomeAutomation\templates\views\mapping.html" />
+    <Content Include="HomeAutomation\templates\views\mappingdetail.html" />
+    <Content Include="HomeAutomation\templates\views\settings.html" />
+    <Content Include="HomeAutomation\templates\views\usermanagement.html" />
     <Content Include="homeconfig.json" />
     <Content Include="notes.txt" />
     <Content Include="requirements.txt" />

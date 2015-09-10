@@ -11,7 +11,6 @@ import os
 
 clients = []
 
-
 class MessageBroker(WebSocket):
 
     def __init__(self, server, sock, address):
@@ -20,8 +19,10 @@ class MessageBroker(WebSocket):
         self.wronLogonAttempts = 0
         self._clientType = None
         self._hardware = None
+        self._groupConfigFile = os.path.join(os.path.dirname(__file__), 'homeconfig.json')
 
         return super(MessageBroker, self).__init__(server, sock, address)
+
     def handleMessage(self):
        print "Handle Message: "
        print self.data
@@ -53,17 +54,33 @@ class MessageBroker(WebSocket):
         pass
 
     def readPagesConfig(self):
-        filepath = os.path.join(os.path.dirname(__file__), 'homeconfig.json')
-        print "filepath: " + filepath
+   
         result = ""
         try:
             # Can not handle utf8!!!!
-            input_file = file(filepath, "r")
+            input_file = file(self._groupConfigFile, "r")
             result = json.loads(input_file.read().decode("utf-8-sig"))
         except Exception, e:
             print e
 
         return result
+
+    def savePagesConfigFile(self, data):
+        """Saves the config file."""
+        try:
+            if data:
+                prettyOutput = json.dumps(data, indent=4, separators=(',', ': '))
+                f=open(self._groupConfigFile, 'w')
+                f.write(prettyOutput)
+                f.flush()
+                f.close
+
+            pass
+        except Exception, e:
+            print e
+        pass
+
+
 
     def envelopeMessage(self, messagetype, data):
         result = {
@@ -85,23 +102,44 @@ class MessageBroker(WebSocket):
         if message:
             messagetype = message['messagetype']
             if messagetype:
-                if messagetype == u'subscribe':
+                if messagetype == u'subscribe': #client subscribes a message type
                     self.subscribe(message)
-                elif messagetype == u'unsubscribe':
+                elif messagetype == u'unsubscribe': #client unsubscribes from message type
                     self.unsubscribe(message)
-                elif messagetype == u'getPages':
+                elif messagetype == u'getPages': # client requests page info
                     self.getPages(message)                        
-                elif messagetype == u'pullupdates':
+                elif messagetype == u'pullupdates': # Client requests for hardware status update
                      self.sendRefreshBroadcast()
-                elif messagetype == u'logon':
+                elif messagetype == u'logon': # Client tries to authenticate
                     self.logon(message)
-                elif messagetype == u'authHardware':
+                elif messagetype == u'authHardware': # Hardware client tries to authenticate
                     self.logonHardware(message)
-                elif messagetype == u'nodeinfo':
+                elif messagetype == u'nodeinfo': # Hardware node sends node infos
                     self.nodeInfo(message)
+                elif messagetype == u'getMappingInfo': # Browser client requests for mapping infos
+                    self.sendMappingInfo()
+                elif messagetype == u'savePages':
+                    self.savePages(message)
+                    
                 else:
                     # Sent to all except me
                     self.sentToAll(message)
+
+    def savePages(self, message):
+        if self.grandAccess:
+            print "save pages!!!"
+            self.savePagesConfigFile(message["data"])
+        pass
+    
+    def sendMappingInfo(self):
+        """Send current hardware mapping data to client"""
+        mapping = []
+        for client in clients:
+            if client._clientType == "hardware":
+                mapping.append(client._hardware)
+        message = self.envelopeMessage("MappingInfo", mapping)
+        self.sendMessage(message)
+        pass
 
     def nodeInfo(self, message):
         """Reads the node info from message."""
