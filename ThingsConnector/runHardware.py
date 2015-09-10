@@ -18,7 +18,6 @@ class ThingsConnectorRunner(ThingsConectorBase):
         self.RunConnector();
 
     def initSamples(self):
-        logging.info("initSamples called")
         """ Items definieren, später evtl. über Config."""
         # ----------------------------------------------------------------------------
         # Items anfügen
@@ -43,10 +42,15 @@ if __name__ == "__main__":
     #logging.basicConfig(filename='ThingsConnectorRunner.log', level=logging.INFO)
     #logging.info("Started")
     
-    nodeId = "4711xxo" # Eindeutige Id
-    #url = "ws://dev.huvermann.com:8000"
-    url = "ws://localhost:8000" #Adresse des Servers
-    nodeName = "Solaranlage"
+    if (is_windows):
+        nodeId = "WindowsNode4711" # Eindeutige Id
+    else:
+        nodeId = "LinuxNode4711" # Eindeutige Id
+        nodeName = "Raspberry Keller"
+
+    url = "ws://dev.huvermann.com:8000" #Testserver im Internet
+    #url = "ws://localhost:8000" #Adresse des Servers
+    
     loopDelay = 0.5
 
     runner = ThingsConnectorRunner(nodeId, url, nodeName, loopDelay)
@@ -57,7 +61,6 @@ if __name__ == "__main__":
         runner.initRaspberryHardware()
 
     runner.run()
-    logging.info("Finished")
 
 
 
