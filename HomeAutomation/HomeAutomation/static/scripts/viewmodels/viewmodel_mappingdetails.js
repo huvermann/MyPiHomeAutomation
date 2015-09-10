@@ -50,6 +50,10 @@
     }
 
     this.onBeforeShow = function(event, message) {
+        self.refresh();
+    }
+
+    this.refresh = function() {
         var html = "";
         var listview = $('#mappingdetail-listview');
         if (self.selectedGroup) {
@@ -62,7 +66,36 @@
         }
         listview.append(html);
         listview.listview("refresh");
+
+        var functionListview = $("#popfunctionlistview");
+        var html = this.renderEmptyPopupListview();
+        functionListview.empty().append(html);
+        functionListview.listview("refresh");
+        // Request für Liste absetzen
+        $('#mainmenue').servicemenuwidget().servicemenuwidget("sendMappingInfoRequest");
     }
+
+    this.renderEmptyPopupListview = function () {
+        var html = "";
+        html += '<li data-role="list-divider">...lade funktionsliste</li>';
+        return html;
+    }
+
+    this.renderNodeInfoPopupList = function (data) {
+        var html = "";
+        html += '<li data-role="list-divider">Welche Komponenten sollen in dieser Gruppe angezeigt werden?</li>';
+        for (node in data) {
+            html += '<li data-role="list-divider" data-theme="a">' + data[node].description + '</li>';
+            for (hardware in data[node].hardwareinfo) {
+                html += '<li><a href="#">';
+                html += data[node].hardwareinfo[hardware].description;
+                html += '</a></li>';
+            }
+        }
+        
+        return html;
+    }
+
 
     this.renderList = function () {
         var group = self.pageInfo.pages[self.selectedGroup];
@@ -76,10 +109,20 @@
         }
         return html;
     }
+
+    this.onMappingInfoResponse = function (event, message, senderElement) {
+        console.log(message);
+        if (message.data) {
+            var functionListview = $("#popfunctionlistview");
+            var html = self.renderNodeInfoPopupList(message.data);
+            functionListview.empty().append(html);
+            functionListview.listview("refresh");
+        }
+    }
     // on select group event:
     $(document).on('selectgroup', self.onSelectGroup);
     $("#mappingdetail").on('pagebeforeshow', this.onBeforeShow);
     $("#mappingdetail").on('pagecreate', this.onViewPageCreate);
-
     $(document).bind("onPageListResponse", this.onPageListResponse);
+    $(document).bind("onMappingInfoResponse", this.onMappingInfoResponse);
 }
