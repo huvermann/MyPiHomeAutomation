@@ -30,7 +30,7 @@
     }
 
     this.removeSelectedGroup = function () {
-        if (self.selectedGroup) {
+        if (self.selectedGroup != null) {
             self.pageInfo.pages.splice(self.selectedGroup, 1);
             self.selectedGroup = null;
         }
@@ -56,7 +56,7 @@
     this.refresh = function() {
         var html = "";
         var listview = $('#mappingdetail-listview');
-        if (self.selectedGroup) {
+        if (self.selectedGroup != null) {
             var groupname = self.pageInfo.pages[self.selectedGroup].PageName;
             $("#mappinggroupname").empty().append(groupname);
             // Listview aktualisieren
