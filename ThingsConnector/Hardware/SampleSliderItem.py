@@ -1,5 +1,6 @@
-﻿from ThingsItemBase import *
-import ItemTypes
+﻿from Core import ThingsItemBase
+from Core import ItemTypes
+
 
 class SampleSliderItem(ThingsItemBase):
     """description of class"""

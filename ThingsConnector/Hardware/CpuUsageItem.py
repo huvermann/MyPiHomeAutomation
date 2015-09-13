@@ -1,10 +1,10 @@
 ﻿import subprocess
-from ThingsItemBase import *
 from locale import *
-from utilsTings import is_windows
+from Core import is_windows
+from Core import ThingsItemBase
+
 if (not is_windows()):
     import psutil
-    #import random
 
 
 class CpuUsageItem(ThingsItemBase):

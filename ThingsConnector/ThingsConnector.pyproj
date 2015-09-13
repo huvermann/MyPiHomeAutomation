@@ -5,8 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>02f2e616-c8b9-4a5f-b8fe-af81bf9da3bc</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>runHardware.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,39 +24,44 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CpuUsageItem.py">
+    <Compile Include="Hardware\CpuUsageItem.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EnoceanFunkBridg.py">
+    <Compile Include="Hardware\EnoceanFunkBridg.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ItemTypes.py">
+    <Compile Include="Hardware\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="raspiGpioItem.py">
+    <Compile Include="Core\ItemTypes.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="runMessageDebugger.py">
+    <Compile Include="Core\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SampleSliderItem.py">
+    <Compile Include="Hardware\raspiGpioItem.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SampleSwitchItem.py">
+    <Compile Include="Hardware\SampleSliderItem.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ThingsConnectorBase.py" />
+    <Compile Include="Hardware\SampleSwitchItem.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\ThingsConnectorBase.py" />
     <Compile Include="runHardware.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ThingsItemBase.py">
+    <Compile Include="Core\ThingsItemBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="utilsTings.py">
+    <Compile Include="Core\utilsTings.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Hardware\" />
+    <Folder Include="Core\" />
     <Folder Include="tools\" />
   </ItemGroup>
   <ItemGroup>

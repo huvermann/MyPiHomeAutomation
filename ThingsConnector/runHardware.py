@@ -1,14 +1,15 @@
 ﻿import logging
-from utilsTings import is_windows
-from ThingsConnectorBase import *
-import ItemTypes
-from CpuUsageItem import *
-from SampleSwitchItem import *
-from SampleSliderItem import *
-if (not is_windows()):
-    from raspiGpioItem import *
+from Core import __all__
+from Core.utilsTings import is_windows
 
-from utilsTings import is_windows
+#from ThingsConnectorBase import *
+from Core import ThingsConectorBase
+from Core import ItemTypes
+from Hardware.CpuUsageItem import CpuUsageItem
+from Hardware.SampleSwitchItem import *
+from Hardware.SampleSliderItem import *
+if (not is_windows()):
+    from Hardware.raspiGpioItem import *
 
 
 class ThingsConnectorRunner(ThingsConectorBase):
